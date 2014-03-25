@@ -47,30 +47,30 @@ App.ApplicationController = Ember.Controller.extend({
 
 });
 
-// App.CoffeesController = Ember.ArrayController.extend({
-//   // queryParams: ['sort'],
-//   // sort: 'name',
+App.CoffeesController = Ember.ArrayController.extend({
+  // queryParams: ['sort'],
+  // sort: 'name',
 
-//   // sortByName: function() {
-//   //   var sort = this.get('sort');
-//   //   console.log(sort)
-//   // }.property('sort', 'model')
+  // sortByName: function() {
+  //   var sort = this.get('sort');
+  //   console.log(sort)
+  // }.property('sort', 'model')
 
-//     queryParams: ['category'],
-//   category: null,
+    queryParams: ['category'],
+  category: null,
 
-//   filteredArticles: function() {
-//     var category = this.get('category');
-//     var articles = this.get('model');
+  filteredArticles: function() {
+    var category = this.get('category');
+    var articles = this.get('model');
 
-//     console.log(category);
-//     if (category) {
-//       return articles.filterProperty('category', category);
-//     } else {
-//       return articles;
-//     }
-//   }.property('category', 'model')
-// });
+    console.log(category);
+    if (category) {
+      return articles.filterProperty('category', category);
+    } else {
+      return articles;
+    }
+  }.property('category', 'model')
+});
  
 
 
@@ -79,8 +79,8 @@ $(function(){
 
 //init SwipeBox on gallery
 $('.swipebox').swipebox({
-  useCSS: true, // false will force the use of jQuery for animations</span>
-  hideBarsDelay: 0 // 0 to always show caption and action bar</span>
+  useCSS: true, // false will force the use of jQuery for animations
+  hideBarsDelay: 0 // 0 to always show caption and action bar
 });
 
 

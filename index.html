@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <head>
-  <script src="js/libs/jquery-2.1.0.min.js"></script>
+  <script>
+    ENV = { ENABLE_ALL_FEATURES: true };
+  </script>
+  <script src="js/libs/jquery-1.9.1.js"></script>
   <script src="js/libs/jquery.swipebox.min.js"></script>
   <script src="js/libs/handlebars.js"></script>
   <script src="js/libs/ember.js"></script>
@@ -29,10 +32,10 @@
     <header>
       <h1>THE REAL COFFEE MENU</h1>
     </header>
-      <!--   <div id='sort'>
+    <div id='sort'>
       <div id='sortByPrice' class='button link'>Sort By Cost</div>
       <div id='sortByName' class='button link'>Sort By Name</div>
-    </div> -->
+    </div>
     {{#each .}}
         {{#link-to 'Coffee' this tagName='div' class='coffees link box'}}
           <img {{bind-attr src='image'}} class='w45'/>
