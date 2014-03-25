@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<head>
+  <script src="js/libs/jquery-2.1.0.min.js"></script>
+  <script src="js/libs/jquery.swipebox.min.js"></script>
+  <script src="js/libs/handlebars.js"></script>
+  <script src="js/libs/ember.js"></script>
+  <script src="js/libs/ember-data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/coffeeinfo.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
+  <link rel="stylesheet" href="css/swipebox.min.css">
+  <meta charset="utf-8">
+  <title>The Real Coffee Menu</title>
+</head>
+<body>
+  <script type="text/x-handlebars" data-template-name='application'>
+    <div class='container'>
+      {{outlet}}
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name='index'>
+    <header>
+      <h1>{{#link-to 'Coffees'}}Landing Page{{/link-to}}</h1>
+    </header>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name='Coffees'>
+    <header>
+      <h1>THE REAL COFFEE MENU</h1>
+    </header>
+      <!--   <div id='sort'>
+      <div id='sortByPrice' class='button link'>Sort By Cost</div>
+      <div id='sortByName' class='button link'>Sort By Name</div>
+    </div> -->
+    {{#each .}}
+        {{#link-to 'Coffee' this tagName='div' class='coffees link box'}}
+          <img {{bind-attr src='image'}} class='w45'/>
+          <div class='w50 text'>
+            <h2>{{name}}</h2>
+            <p>{{short_description}}</p>
+            <p>Price: {{price}}</p>
+          </div>
+          <div class='w5 arrow'>
+            >
+          </div>
+
+        {{/link-to}}
+    {{/each}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name='Coffee'>
+    <header>
+      <h1>{{#link-to 'Coffees'}}<{{/link-to}} {{name}}</h1>
+    </header>
+    <nav id='coffeeNav' class='link'>
+      <ul>
+        {{#link-to 'Coffee' tagName='li'}}Overview{{/link-to}}{{#link-to 'Gallery' tagName='li'}}Gallery{{/link-to}}{{#link-to 'Reviews' tagName='li'}}Reviews{{/link-to}}</li>
+      </ul>
+    </nav>
+
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name='Coffee/index'>
+    <div id='Overview'>
+      <div class='coffeeOverview box'>
+        <h2>Overview</h2>
+        <div>
+          <p>{{short_description}}</p>
+          <p>Price: {{price}}</p>
+        </div>
+        <img {{bind-attr src='image' alt='title'}}/>
+      </div>
+      <div class='coffeeDesc box'>
+        <h2>Description</h2>
+        <p>{{long_description}}</p>
+      </div>
+      <div class='whoDrinks box'>
+        <h2>Who drinks it?</h2>
+        <p>{{who_drinks_it}}</p>
+      </div>
+      <div class='howDrinks box'>
+        <h2>How to Drink</h2>
+        <p>{{how_to_drink}}</p>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name='Gallery'>
+    <div class='box'>
+      <h2>Gallery</h2>
+      <p>Gallery of {{name}}s that fellow coffee sippers have uploaded</p>
+      <div id='gallery'>
+      {{#each gallery}}
+       <a {{bind-attr href='this' }} class="swipebox" title="{{../name}}">
+                <img {{bind-attr src='this'}}>
+        </a>
+      {{/each}}
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name='Reviews'>
+    <div class='reviews box'>
+      <h2>Reviews</h2>
+      <p>Coming Soon...</p>
+    </div>
+  </script>
+
+</body>
+</html>

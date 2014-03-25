@@ -1,0 +1,162 @@
+* { box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
+body {
+  background-color:#ddd;
+  font-family: 'bariol'
+}
+
+header {
+  background:white;
+  border-bottom:1px solid #bcbcbc;
+  color:rgb(33, 44, 62);
+}
+
+h1 {
+  font-family: 'Proxima Nova Alt Condensed';
+  font-size: 1.5em;
+  letter-spacing: 1.3px;
+  padding:10px;
+  text-align: center;
+}
+
+h2 {
+  font-family: 'Proxima Nova Alt Condensed';
+  text-align: center;
+  font-size: 1.2em;
+  padding:5px;
+}
+
+a:link {
+  text-decoration: none;
+  color:rgb(33, 44, 62);
+}
+
+a:visited {
+  text-decoration: none;
+  color:rgb(33, 44, 62);
+}
+
+/************ template elements **************/
+.box {
+  border: 1px solid #bcbcbc;
+  border-radius: 2px;
+  padding:2%;
+  margin:1%;
+  background:white;
+  list-style: none;
+  font-family: "Bariol";
+}
+
+.box p {
+  margin:2%;
+}
+
+/************ sort items **************/
+#sort {
+  width:100%;
+  margin: 0 auto;
+  margin-bottom:10px;
+}
+
+#sort .button{
+  display: inline-block;
+  border: 2px solid rgb(231, 214, 196);
+  padding:1%;
+  list-style: none;
+  text-align:center;
+  font-family: 'bariol';
+  width: 50.15%;
+  color:rgb(115, 100, 89);
+  margin-right: -6px;
+}
+
+#sort .button:active {
+  background-color: rgb(115, 100, 89);
+  color:rgb(236, 229, 219);
+}
+
+/************ menu items **************/
+
+.coffees:active {
+  background-color: #efefef;
+}
+
+.coffees .text {
+  padding:3%;
+  vertical-align: top;
+}
+
+.coffees p {
+  color:#aaa;
+}
+
+.coffees .arrow{
+  font-size: 2em;
+  font-weight: lighter;
+}
+
+.coffees > * {
+  vertical-align: middle;
+}
+
+
+/************ coffee item > nav **************/
+#coffeeNav ul {
+  width:100%;
+}
+
+#coffeeNav li {
+  width:33.4%;
+  display: inline-block;
+  text-align: center;
+  background: white;
+  border:1px solid #bcbcbc;
+  margin-right: -1px;
+  margin-top:-1px;
+  padding: 2%;
+}
+
+/************ coffee item > overview **************/
+.coffeeOverview img {
+  width:100%;
+  margin: 0 auto;
+}
+
+.coffeeOverview p {
+  text-align: center;
+}
+
+
+/************ coffee item > gallery **************/
+#gallery img {
+  width:24%;
+}
+
+
+/************ helpers **************/
+.w45 {
+  display:inline-block;
+  width: 45%;
+}
+
+.w50 {
+  display:inline-block;
+  width: 50%;
+}
+
+.w5 {
+  display:inline-block;
+  width:5%;
+}
+
+.w45, .w50, .w5 {
+  margin-right: -1%;
+}
+
+.clear { clear: both;}
+
+.link {cursor: pointer;}
+
