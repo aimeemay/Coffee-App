@@ -17,7 +17,10 @@ App.Router.map(function() {
 App.CoffeesRoute = Ember.Route.extend({
   model: function(params) {
     console.log('Params: ', params)
-    return App.COFFEE;
+
+    return App.COFFEE.sort(function(a,b){
+      return a[params.sort] > b[params.sort];
+    });
   }
 });
 
@@ -48,28 +51,30 @@ App.ApplicationController = Ember.Controller.extend({
 });
 
 App.CoffeesController = Ember.ArrayController.extend({
-  // queryParams: ['sort'],
-  // sort: 'name',
+  queryParams: ['sort'],
+  sort: null,
 
-  // sortByName: function() {
-  //   var sort = this.get('sort');
-  //   console.log(sort)
-  // }.property('sort', 'model')
+  sortedCoffees: function() {
+    var sort = this.get('sort');
+    var coffees = this.get('model')
 
-    queryParams: ['category'],
-  category: null,
-
-  filteredArticles: function() {
-    var category = this.get('category');
-    var articles = this.get('model');
-
-    console.log(category);
-    if (category) {
-      return articles.filterProperty('category', category);
+    if (coffees) {
+      return temp = coffees.sort(function(a,b){
+        return a[sort] > b[sort];
+    });
+      console.log(temp)
     } else {
-      return articles;
+      return App.COFFEE
     }
-  }.property('category', 'model')
+  }.property('sort', 'model')
+
+  //   console.log(category);
+  //   if (category) {
+  //     return articles.filterProperty('category', category);
+  //   } else {
+  //     return articles;
+  //   }
+  // }.property('category', 'model')
 });
  
 
@@ -82,36 +87,6 @@ $('.swipebox').swipebox({
   useCSS: true, // false will force the use of jQuery for animations
   hideBarsDelay: 0 // 0 to always show caption and action bar
 });
-
-
-// function sortByProperty(property) {
-//     'use strict';
-//     return function (a, b) {
-//         var sortStatus = 0;
-//         if (a[property] < b[property]) {
-//             sortStatus = -1;
-//         } else if (a[property] > b[property]) {
-//             sortStatus = 1;
-//         }
- 
-//         return sortStatus;
-//     };
-// }
- 
-// $('#sortByName').on('click', function() {
-//    // console.log('got here');  
-//   var sortedByName = App.COFFEE.sort(sortByProperty('name'));
-//   console.log(sortedByName);
-//   // $("#menu").empty();
-//   // $("#menu").append(menuItemsTemplate(sortedByName));
-// });
-
-// $('#sortByPrice').on('click', function() {
-//   var sortedByPrice = coffeeItems.sort(sortByProperty('price'));
-// //   console.log(sortedByPrice);
-//   $("#menu").empty();
-//   $("#menu").append(menuItemsTemplate(sortedByPrice));
-// });
 
 }); //doc ready
 
