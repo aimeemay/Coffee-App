@@ -53,6 +53,7 @@ App.ApplicationController = Ember.Controller.extend({
 App.CoffeesController = Ember.ArrayController.extend({
   queryParams: ['sort'],
   sort: null,
+  
 
   sortedCoffees: function() {
     var sort = this.get('sort');
