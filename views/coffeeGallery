@@ -1,0 +1,11 @@
+    <div class='box'>
+      <h2>Gallery</h2>
+      <p>Gallery of {{name}}s that fellow coffee sippers have uploaded</p>
+      <div id='gallery'>
+      {{#each gallery}}
+       <a {{bind-attr href='this' }} class="swipebox" title="{{../name}}">
+                <img {{bind-attr src='this'}}>
+        </a>
+      {{/each}}
+      </div>
+    </div>

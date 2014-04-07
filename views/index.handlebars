@@ -3,12 +3,9 @@
     </header>
 
     {{#if activeSession}}
-      You are already logged in!
-
+        You are already logged in!
+    
     {{else}}
-      {{#if message}}
-        <div id=message>{{message}}<div>
-      {{/if}}
 
       <form action="/login" method="post">
         <div>
@@ -31,9 +28,10 @@
             </select>
         </div>
         <div>
-            <input type="submit" value="Log In"/>
+            <input type="submit" value="Log In" id='submitLogIn'/>
         </div>
       </form>
+      
       <div><a href='/coffees'>Skip to Menu</a></div>
 
     {{/if}}

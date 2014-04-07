@@ -53,7 +53,6 @@ var coffee = [
 
 
  // Look at the ember: http://jsbin.com/izijal/9/edit
-
 var express = require('express')
   , passport = require('passport')
   , flash = require('connect-flash')
@@ -103,10 +102,6 @@ passport.deserializeUser(function(id, done) {
 
 
 // Use the LocalStrategy within Passport.
-//   Strategies in passport require a `verify` function, which accept
-//   credentials (in this case, a username and password), and invoke a callback
-//   with a user object.  In the real world, this would query a database;
-//   however, in this example we are using a baked-in set of users.
 passport.use(new LocalStrategy(
   function(username, password, done) {
     // asynchronous verification, for effect...
@@ -162,10 +157,11 @@ app.get('/', function(req,res) {
 	var activeSession = !(typeof req.user === "undefined")
 	if (activeSession) res.redirect('coffees');
 	res.render('index', {activeSession: activeSession, user: req.user});
+
 })
 
 
-// Coffees - i.e. menu page
+// Coffees route - i.e. menu page
 app.get('/coffees/:sort?', function(req, res){
 
 	var sortBy = (req.params.sort || "name");
@@ -183,7 +179,7 @@ app.get('/coffees/:sort?', function(req, res){
 	}
 })
 
-//Coffee - i.e. individual coffee type pages
+//Coffee route - i.e. individual coffee type pages
 app.get('/coffee/:name', function(req, res) {
 	var selectedCoffee = coffee.filter(function(a) {
 		return req.params.name === a.name;
@@ -202,21 +198,19 @@ app.get('/coffee/:name/reviews', function(req, res) {
 	var selectedCoffee = coffee.filter(function(a) {
 		return req.params.name === a.name;
 	})[0]
-	res.render('coffeeRseviews', selectedCoffee)
+	res.render('coffeeReviews', selectedCoffee)
 })
 
-
+//Login route
 app.post('/login',
   passport.authenticate('local', { failureRedirect: '/', failureFlash: true }),
   function(req, res) {
   	var sessionTime = req.body.session * 60 * 1000;
   	req.session.cookie.maxAge = sessionTime;
-
-  	console.log('Set session time: ', sessionTime, 'Session cookie info', req.session.cookie)
-    
+  	// console.log('Set session time: ', sessionTime, 'Session cookie info', req.session.cookie)
+  	// console.log('res :', res); - aimee here.
     res.redirect('/coffees');
   });
-
 
 
 app.get('/isloggedin', function(req, res){
@@ -224,7 +218,7 @@ app.get('/isloggedin', function(req, res){
 	var uservalid =  !(typeof req.user === "undefined");
 	var user = (req.user || 'undefined');
 	// console.log(req.user);
-	console.log('Current date', new Date(), 'Cookie expiery date', new Date(req.session.cookie['_expires']), "<>", req.session.cookie['_expires'], req.session.cookie )
+	// console.log('Current date', new Date(), 'Cookie expiery date', new Date(req.session.cookie['_expires']), "<>", req.session.cookie['_expires'], req.session.cookie )
 	var timeleft = Math.abs(new Date(req.session.cookie['_expires']) - new Date(Date.now()))
 	res.end(JSON.stringify({
 		uservalid: uservalid,
@@ -244,15 +238,15 @@ app.listen(4242, function() {
 });
 
 
-// Simple route middleware to ensure user is authenticated.
-//   Use this route middleware on any resource that needs to be protected.  If
-//   the request is authenticated (typically via a persistent login session),
-//   the request will proceed.  Otherwise, the user will be redirected to the
-//   login page.
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); } //what is passed into req? the user? - aimee
-  res.redirect('/')
-}
+// // Simple route middleware to ensure user is authenticated.
+// //   Use this route middleware on any resource that needs to be protected.  If
+// //   the request is authenticated (typically via a persistent login session),
+// //   the request will proceed.  Otherwise, the user will be redirected to the
+// //   login page.
+// function ensureAuthenticated(req, res, next) {
+//   if (req.isAuthenticated()) { return next(); } //what is passed into req? the user? - aimee
+//   res.redirect('/')
+// }
 
 //////////////NEXT PRAC//////////////
 // app.get('/api', function (req, res) {

@@ -11,57 +11,55 @@
 <body>
 
 	<script>
-  $(function(){
+    $(function(){
 
-    $('.swipebox' ).swipebox();
+      $('.swipebox' ).swipebox();
 
-    // Make ajax call to logged in api (this could be moved into the template, but good demo for ajax)
-    $.get('/isloggedin', function (data) {
-     
-     // only actually logged in if: data.uservalid === true
-     // time in milisecond: data.timeleft
+      // Make ajax call to logged in api (this could be moved into the template, but good demo for ajax)
+      $.get('/isloggedin', function (data) {
+       
+       // only actually logged in if: data.uservalid === true
+       // time in milisecond: data.timeleft
 
-     var timeleft = parseInt(data.timeleft / 1000); // stored in sec 
-     updateTime();
-  
-
-    if (data.uservalid) {
-
-      // if there is an active user session remove the login button
-      $('.login').remove();
-    } else {
-      $('.logout').remove();
-      
-      // If on homepage also remove logout button
-      if (window.location.pathname === "/") $('.login').remove();
-    }
-
-
-    var loginInterval = setInterval(function(){
-      --timeleft; // Reduce time by one
-      updateTime();
-      if (timeleft === 0) {
-        clearInterval(loginInterval);
-        alert('You have been logged out!');
-         document.location.href="/"; //redirect to index
-      }
-    },1000)
-
-    function updateTime() {
-      var totalSec = timeleft;
-      var hours = parseInt( totalSec / 3600 ) % 24;
-      var minutes = parseInt( totalSec / 60 ) % 60;
-      var seconds = totalSec % 60;
-      var result = (minutes < 10 ? "0" + minutes : minutes) + "min " + (seconds  < 10 ? "0" + seconds : seconds) + " sec";
-     if (data.uservalid) $('title').html('Menu | ' + result);
-    }
-
-
-    })
-  })
-  </script>
+       var timeleft = parseInt(data.timeleft / 1000); // stored in sec 
+       updateTime();
     
 
+      if (data.uservalid) {
+        // if there is an active user session remove the login button
+        $('.login').remove();
+      } else {
+        $('.logout').remove();
+        // If on homepage also remove logout button
+        if (window.location.pathname === "/") $('.login').remove();
+      }
+
+      var loginInterval = setInterval(function(){
+        --timeleft; // Reduce time by one
+        updateTime();
+        if (timeleft === 0) {
+          clearInterval(loginInterval);
+          alert('You have been logged out!');
+          document.location.href="/";
+        }
+      },1000)
+
+      function updateTime() {
+        var totalSec = timeleft;
+        var hours = parseInt( totalSec / 3600 ) % 24;
+        var minutes = parseInt( totalSec / 60 ) % 60;
+        var seconds = totalSec % 60;
+        var result = (minutes < 10 ? "0" + minutes : minutes) + "min " + (seconds  < 10 ? "0" + seconds : seconds) + " sec";
+       if (data.uservalid) $('title').html('Menu | ' + result);
+      }
+
+      //display username when logged in (i.e. with logout button)
+      $('.logout').prepend('<p>Welcome ' + data.user.username + '</p>');
+
+      })
+    })
+  </script>
+    
     <div class="logout">
       <a href="/logout">
         Logout
@@ -73,6 +71,7 @@
         Login
       </a>
     </div>
+
 
     {{{body}}}
 
