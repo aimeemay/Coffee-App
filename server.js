@@ -62,7 +62,7 @@ var express = require('express')
 
 var users = [
     { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' }
-  , { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com' }
+  , { id: 2, username: 'a', password: 'a', email: 'joe@example.com' }
 ];
 
 function findById(id, fn) {
@@ -130,17 +130,16 @@ var app = express();
 
 // configure Express
 app.configure(function() {
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
-  app.engine('ejs', require('ejs-locals'));
-  app.use(express.logger());
+  // app.set('views', __dirname + '/views');
+  // app.set('view engine', 'ejs');
+  // app.engine('ejs', require('ejs-locals'));
+  // app.use(express.logger());
   app.use(express.cookieParser('some secret'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.session({
-    secret: 'keyboard cat',
     cookie: {
-      expires : new Date(Date.now() + 36000) //1 Hour
+      maxAge : 3600000//ms   = 1 Hour
     }
   }));
   app.use(flash());
@@ -180,8 +179,30 @@ app.configure(function() {
 app.post('/login',
   passport.authenticate('local', { failureRedirect: '/', failureFlash: true }),
   function(req, res) {
-    res.redirect('/#/Coffees');
+  	var sessionTime = req.body.session * 60 * 1000;
+  	req.session.cookie.maxAge = sessionTime;
+  	console.log('Set session time: ', sessionTime, 'Session cookie info', req.session.cookie)
+
+  	// req.session.cookie['_expires'] = new Date(Date.now() + sessionTime);
+    res.redirect('/isloggedin');
   });
+
+
+
+app.get('/isloggedin', function(req, res){
+	res.setHeader('Content-Type', 'application/json');
+	var uservalid =  !(typeof req.user === "undefined");
+	var user = (req.user || 'undefined');
+	// console.log(req.user);
+	console.log('Current date', new Date(), 'Cookie expiery date', new Date(req.session.cookie['_expires']), "<>", req.session.cookie['_expires'], req.session.cookie )
+	var timeleft = Math.abs(new Date(req.session.cookie['_expires']) - new Date(Date.now()))
+	res.end(JSON.stringify({
+		uservalid: uservalid,
+		user: user,
+		cookie: req.session,
+		timeleft: timeleft
+	}));
+})
 
 app.get('/logout', function(req, res){
   req.logout();
@@ -200,7 +221,7 @@ app.listen(4242, function() {
 //   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); } //what is passed into req? the user? - aimee
-  res.redirect('/login')
+  res.redirect('/')
 }
 
 

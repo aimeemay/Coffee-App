@@ -6,16 +6,53 @@
   <script src="js/libs/jquery-1.9.1.js"></script>
   <script src="js/libs/jquery.swipebox.min.js"></script>
   <script src="js/libs/handlebars.js"></script>
+  <script src="js/libs/moment.min.js"></script>
   <script src="js/libs/ember.js"></script>
   <script src="js/libs/ember-data.js"></script>
-  <script src="js/app.js"></script>
   <script src="js/coffeeinfo.js"></script>
+  <script src="js/app.js"></script>
   <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
   <link rel="stylesheet" href="css/swipebox.min.css">
   <meta charset="utf-8">
-  <title>The Real Coffee Menu</title>
+  <title>Menu</title>
 </head>
 <body>
+  <script>
+  $(function(){
+    $.get('/isloggedin', function (data) {
+     
+     // only actually logged in if: data.uservalid === true
+     // time in milisecond: data.timeleft
+
+     var timeleft = parseInt(data.timeleft / 1000); // stored in sec 
+     updateTime();
+    
+
+
+    var loginInterval = setInterval(function(){
+      --timeleft; // Reduce time by one
+      updateTime();
+      if (timeleft === 0) {
+        clearInterval(loginInterval);
+        alert('You have been logged out!')
+      }
+    },1000)
+
+    function updateTime() {
+      var totalSec = timeleft;
+      var hours = parseInt( totalSec / 3600 ) % 24;
+      var minutes = parseInt( totalSec / 60 ) % 60;
+      var seconds = totalSec % 60;
+      var result = (minutes < 10 ? "0" + minutes : minutes) + "min " + (seconds  < 10 ? "0" + seconds : seconds) + " sec";
+     if (data.uservalid) $('title').html('Menu | ' + result);
+    }
+
+
+    })
+  })
+  </script>
+
+
   <script type="text/x-handlebars" data-template-name='application'>
     <div class='container'>
       {{outlet}}
@@ -26,6 +63,7 @@
     <header>
       <h1>{{#link-to 'Coffees'}}Landing Page{{/link-to}}</h1>
     </header>
+
     <form action="/login" method="post">
       <div>
           <label>Username:</label>
@@ -36,6 +74,18 @@
           <input type="password" name="password"/>
       </div>
       <div>
+          <label>Session Time</label>
+          <select name="session">
+              <option value='1'>1 min</option>
+              <option value='10'>10 min</option>
+              <option value='15'>15 min</option>
+              <option value='30'>30 min</option>
+              <option value='60'>1 hour</option>
+              <!--<option value='6000000'>Forever</option>-->
+          </select>
+      </div>
+
+      <div>
           <input type="submit" value="Log In"/>
       </div>
     </form>
@@ -45,10 +95,11 @@
     <header>
       <h1>THE REAL COFFEE MENU</h1>
     </header>
-    <!-- <div id='sort'>
+    <div id='sort'>
       {{#link-to 'Coffees' (query-params sort="price") tagName='div' class='button link'}}Sort By Price{{/link-to}}
       {{#link-to 'Coffees' (query-params sort="name") tagName='div' class='button link'}}Sort By Name{{/link-to}}
-    </div> -->
+      {{!-- <a href="#" {{action sort 'sortfunction'}}> Sort by Name</a> --}}
+    </div>
     {{#each .}}
         {{#link-to 'Coffee' this tagName='div' class='coffees link box'}}
           <img {{bind-attr src='image'}} class='w45'/>

@@ -21,8 +21,17 @@ App.CoffeesRoute = Ember.Route.extend({
     return App.COFFEE.sort(function(a,b){
       return a[params.sort] > b[params.sort];
     });
+    // return App.COFFEE;
   }
 });
+
+// App.CoffeesView = Ember.ArrayController.extend({
+//   sortfunction: function() {
+//     alert('was clicked')
+//     // console.log(event)
+//     // return false;
+//   }
+// })
 
 App.CoffeeRoute = Ember.Route.extend({
   model: function(params) {
@@ -32,7 +41,10 @@ App.CoffeeRoute = Ember.Route.extend({
 
 App.CoffeeIndexRoute = Ember.Route.extend({
   model: function(params) {
-    return this.modelFor('Coffee')
+    return $.get('/isloggedin', function(data){
+      console.log(data);
+      return data;
+    });
   }
 });
 
