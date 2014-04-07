@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+  <script src="/js/libs/jquery-1.9.1.js"></script>
+  <script src="/js/libs/jquery.swipebox.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
+  <link rel="stylesheet" href="/css/swipebox.min.css">
+  <meta charset="utf-8">
+  <title>Menu</title>
+</head>
+<body>
+
+	<script>
+  $(function(){
+
+    $('.swipebox' ).swipebox();
+
+    // Make ajax call to logged in api (this could be moved into the template, but good demo for ajax)
+    $.get('/isloggedin', function (data) {
+     
+     // only actually logged in if: data.uservalid === true
+     // time in milisecond: data.timeleft
+
+     var timeleft = parseInt(data.timeleft / 1000); // stored in sec 
+     updateTime();
+  
+
+    if (data.uservalid) {
+
+      // if there is an active user session remove the login button
+      $('.login').remove();
+    } else {
+      $('.logout').remove();
+      
+      // If on homepage also remove logout button
+      if (window.location.pathname === "/") $('.login').remove();
+    }
+
+
+    var loginInterval = setInterval(function(){
+      --timeleft; // Reduce time by one
+      updateTime();
+      if (timeleft === 0) {
+        clearInterval(loginInterval);
+        alert('You have been logged out!')
+      }
+    },1000)
+
+    function updateTime() {
+      var totalSec = timeleft;
+      var hours = parseInt( totalSec / 3600 ) % 24;
+      var minutes = parseInt( totalSec / 60 ) % 60;
+      var seconds = totalSec % 60;
+      var result = (minutes < 10 ? "0" + minutes : minutes) + "min " + (seconds  < 10 ? "0" + seconds : seconds) + " sec";
+     if (data.uservalid) $('title').html('Menu | ' + result);
+    }
+
+
+    })
+  })
+  </script>
+    
+
+    <div class="logout">
+      <a href="/logout">
+        Logout
+      </a>
+    </div>
+
+    <div class="login">
+      <a href="/">
+        Login
+      </a>
+    </div>
+
+    {{{body}}}
+
+</body>
+</html>

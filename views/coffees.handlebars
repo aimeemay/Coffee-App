@@ -1,0 +1,23 @@
+    <header>
+      <h1>THE REAL COFFEE MENU</h1>
+    </header>
+    <div id='sort'>
+      <div class="button link">Sort By Price</div>
+      <div class="button link">Sort By Name</div>
+    </div>
+    {{#each coffee}}
+        <a href="coffee/{{name}}">
+          <div class="coffees link box">
+            <img src="{{image}}" class='w45'/>
+            <div class='w50 text'>
+              <h2>{{name}}</h2>
+              <p>{{short_description}}</p>
+              <p>Price: {{price}}</p>
+            </div>
+            <div class='w5 arrow'>
+              >
+            </div>
+          </div>
+        </a>
+
+    {{/each}}

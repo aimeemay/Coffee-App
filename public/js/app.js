@@ -39,13 +39,18 @@ App.CoffeeRoute = Ember.Route.extend({
   }
 });
 
+
 App.CoffeeIndexRoute = Ember.Route.extend({
-  model: function(params) {
-    return $.get('/isloggedin', function(data){
-      console.log(data);
-      return data;
-    });
+    model: function(params) {
+    return this.modelFor('Coffee')
   }
+
+  // function(params) {
+  //   return $.get('/isloggedin', function(data){
+  //     console.log(data);
+  //     return data;
+  //   });
+  // }
 });
 
 App.GalleryRoute = Ember.Route.extend({

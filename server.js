@@ -59,6 +59,7 @@ var express = require('express')
   , flash = require('connect-flash')
   , LocalStrategy = require('passport-local').Strategy;
 
+var exphbs  = require('express3-handlebars');
 
 var users = [
     { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' }
@@ -130,9 +131,12 @@ var app = express();
 
 // configure Express
 app.configure(function() {
-  // app.set('views', __dirname + '/views');
-  // app.set('view engine', 'ejs');
-  // app.engine('ejs', require('ejs-locals'));
+  app.set('views', __dirname + '/views');
+ 
+
+  app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+  app.set('view engine', 'handlebars');
+
   // app.use(express.logger());
   app.use(express.cookieParser('some secret'));
   app.use(express.bodyParser());
@@ -176,15 +180,66 @@ app.configure(function() {
 //   which, in this example, will redirect the user to the home page.
 //
 //   curl -v -d "username=bob&password=secret" http://127.0.0.1:3000/login
+
+
+// Main route
+app.get('/', function(req,res) {
+	var activeSession = !(typeof req.user === "undefined")
+
+	if (activeSession) res.redirect('coffees');
+
+	res.render('index', {activeSession: activeSession, user: req.user});
+})
+
+
+// Coffee
+
+app.get('/coffees', function(req, res){
+
+	res.render('coffees', {coffee: coffee})
+})
+
+
+app.get('/coffee/:name', function(req, res) {
+	var selectedCoffee = coffee.filter(function(a) {
+		return req.params.name === a.name;
+	})[0]
+	res.render('coffeeOverview', selectedCoffee)
+})
+
+app.get('/coffee/:name/gallery', function(req, res) {
+	var selectedCoffee = coffee.filter(function(a) {
+		return req.params.name === a.name;
+	})[0]
+	res.render('coffeeGallery', selectedCoffee)
+})
+
+
+
+
+// app.get('coffee/:id/gallery', function(req, res) {
+	
+// })
+
+// app.get('coffee/:id/reviews', function(req, res) {
+	
+// })
+
+
+
+
+
+
+
 app.post('/login',
   passport.authenticate('local', { failureRedirect: '/', failureFlash: true }),
   function(req, res) {
   	var sessionTime = req.body.session * 60 * 1000;
   	req.session.cookie.maxAge = sessionTime;
-  	console.log('Set session time: ', sessionTime, 'Session cookie info', req.session.cookie)
 
-  	// req.session.cookie['_expires'] = new Date(Date.now() + sessionTime);
-    res.redirect('/isloggedin');
+  	console.log('Set session time: ', sessionTime, 'Session cookie info', req.session.cookie)
+    
+    res.redirect('/coffees');
   });
 
 
