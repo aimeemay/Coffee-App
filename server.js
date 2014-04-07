@@ -194,9 +194,22 @@ app.get('/', function(req,res) {
 
 // Coffee
 
-app.get('/coffees', function(req, res){
+app.get('/coffees/:sort?', function(req, res){
 
-	res.render('coffees', {coffee: coffee})
+	var sortBy = (req.params.sort || "name");
+
+	// make sure sorting selector actually exist
+	if (sortBy !== "name" && sortBy !== "price") {
+		res.end("404 sort this way doens't exist");
+	} else {
+
+		var sortedCoffee = coffee.sort(function(a,b){
+	        return a[sortBy] > b[sortBy];
+	    });
+
+
+		res.render('coffees', {coffee: sortedCoffee})
+	}
 })
 
 
@@ -279,6 +292,20 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/')
 }
 
+//////////////NEXT PRAC//////////////
+// app.get('/api', function (req, res) {
+//   coffee_list = coffee.map(function(x){
+//   	return { name: x.name, short_description: x.short_description, price: x.price};
+//   })
+//   res.send(coffee_list);
+// });
+
+// app.get("/api/:name", function(req, res){
+// 	res.send(coffee.filter(function(a) {
+// 		return req.params.name === a.name;
+// 	}))
+// })
+//////////////NEXT PRAC//////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// 			     	 OLD			   ////////////////////////////////
@@ -359,20 +386,7 @@ function ensureAuthenticated(req, res, next) {
 // });
 //////////////Paul's Authentication//////////////
 
-//////////////NEXT PRAC//////////////
-// app.get('/api', function (req, res) {
-//   coffee_list = coffee.map(function(x){
-//   	return { name: x.name, short_description: x.short_description, price: x.price};
-//   })
-//   res.send(coffee_list);
-// });
 
-// app.get("/api/:name", function(req, res){
-// 	res.send(coffee.filter(function(a) {
-// 		return req.params.name === a.name;
-// 	}))
-// })
-//////////////NEXT PRAC//////////////
 
 
 

@@ -42,7 +42,8 @@
       updateTime();
       if (timeleft === 0) {
         clearInterval(loginInterval);
-        alert('You have been logged out!')
+        alert('You have been logged out!');
+         document.location.href="/"; //redirect to index
       }
     },1000)
 
