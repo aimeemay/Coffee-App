@@ -3,34 +3,37 @@
     </header>
 
     {{#if activeSession}}
-
-      Succesfully logged in!
+      You are already logged in!
 
     {{else}}
-    <form action="/login" method="post">
-      <div>
-          <label>Username:</label>
-          <input type="text" name="username"/>
-      </div>
-      <div>
-          <label>Password:</label>
-          <input type="password" name="password"/>
-      </div>
-      <div>
-          <label>Session Time</label>
-          <select name="session">
-              <option value='1'>1 min</option>
-              <option value='10'>10 min</option>
-              <option value='15'>15 min</option>
-              <option value='30'>30 min</option>
-              <option value='60'>1 hour</option>
-              <!--<option value='6000000'>Forever</option>-->
-          </select>
-      </div>
-      <div>
-          <input type="submit" value="Log In"/>
-      </div>
-    </form>
-    <div><a href='/coffees'>Skip to Menu</a></div>
+      {{#if message}}
+        <div id=message>{{message}}<div>
+      {{/if}}
+
+      <form action="/login" method="post">
+        <div>
+            <label>Username:</label>
+            <input type="text" name="username"/>
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="password" name="password"/>
+        </div>
+        <div>
+            <label>Session Time</label>
+            <select name="session">
+                <option value='1'>1 min</option>
+                <option value='10'>10 min</option>
+                <option value='15'>15 min</option>
+                <option value='30'>30 min</option>
+                <option value='60'>1 hour</option>
+                <!--<option value='6000000'>Forever</option>-->
+            </select>
+        </div>
+        <div>
+            <input type="submit" value="Log In"/>
+        </div>
+      </form>
+      <div><a href='/coffees'>Skip to Menu</a></div>
 
     {{/if}}

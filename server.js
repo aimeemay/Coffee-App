@@ -156,44 +156,16 @@ app.configure(function() {
 });
 
 
-// app.get('/', function(req, res){ //isn't this the same as 'index' - aimee
-//   // if (req.session){
-//   ///  console.log("Session Time Left", req.session.cookie['_expires'])
-//   //  console.log("Session Time Left", req.user)
-
-//   //res.render('index', { user: req.user, session: req.session.cookie['_expires'] }); //what is the 2nd argument doing here? - aimee
-//   //what if wanted a route that didn't require authentication but if it did, should display user's name and logout button? - aimee
-// });
-
-// app.get('/account', ensureAuthenticated, function(req, res){
-//   res.render('account', { user: req.user });
-// });
-
-// app.get('/login', function(req, res){
-//   res.render('login', { user: req.user, message: req.flash('error') }); //why isn't their a ensureAuth here? - aimee
-// });
-
-// POST /login
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
-//
-//   curl -v -d "username=bob&password=secret" http://127.0.0.1:3000/login
-
 
 // Main route
 app.get('/', function(req,res) {
 	var activeSession = !(typeof req.user === "undefined")
-
 	if (activeSession) res.redirect('coffees');
-
 	res.render('index', {activeSession: activeSession, user: req.user});
 })
 
 
-// Coffee
-
+// Coffees - i.e. menu page
 app.get('/coffees/:sort?', function(req, res){
 
 	var sortBy = (req.params.sort || "name");
@@ -207,12 +179,11 @@ app.get('/coffees/:sort?', function(req, res){
 	        return a[sortBy] > b[sortBy];
 	    });
 
-
 		res.render('coffees', {coffee: sortedCoffee})
 	}
 })
 
-
+//Coffee - i.e. individual coffee type pages
 app.get('/coffee/:name', function(req, res) {
 	var selectedCoffee = coffee.filter(function(a) {
 		return req.params.name === a.name;
@@ -227,21 +198,12 @@ app.get('/coffee/:name/gallery', function(req, res) {
 	res.render('coffeeGallery', selectedCoffee)
 })
 
-
-
-
-// app.get('coffee/:id/gallery', function(req, res) {
-	
-// })
-
-// app.get('coffee/:id/reviews', function(req, res) {
-	
-// })
-
-
-
-
-
+app.get('/coffee/:name/reviews', function(req, res) {
+	var selectedCoffee = coffee.filter(function(a) {
+		return req.params.name === a.name;
+	})[0]
+	res.render('coffeeRseviews', selectedCoffee)
+})
 
 
 app.post('/login',
@@ -307,88 +269,3 @@ function ensureAuthenticated(req, res, next) {
 // })
 //////////////NEXT PRAC//////////////
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////// 			     	 OLD			   ////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-// var users = [{
-//   username: "paul",
-//   password: "pass"
-// },
-// {
-//   username: "aimee",
-//   password: "pass"
-// }];
-
-// var application_root = __dirname,
-//     express = require("express"),
-//     path = require("path"),
-//     passport = require("passport"),
-//     flash = require('connect-flash'),
-//     LocalStrategy = require("passport-local").Strategy;
-
-// var app = express();
-
-// // Config
-// app.configure(function () {
-//   // app.use(express.logger('dev'));
-//   app.use(express.static(path.join(application_root, "public")));
-//   app.use(express.cookieParser());
-//   app.use(express.bodyParser());
-//   // app.use(express.methodOverride());
-//   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-//   app.use(passport.initialize());
-//   app.use(passport.session()); // persistent login sessions
-//   // app.use(flash());
-//   app.use(app.router);
-// });
-
-// user validation 
-// passport.use(new LocalStrategy(
-//   function(username, password, done) {
-//   	console.log('username: ' + username + ", password: " + password)
-//    	var user = (username === 'a')    
-//    	var pass = (password === 'b')
-
-//       if (!user) {
-//         return done(null, false, { message: 'Incorrect username.' });
-//       }
-//       if (!password) {
-//         return done(null, false, { message: 'Incorrect password.' });
-//       }
-//       return done(null, user);
-//   }
-// ));
-
-// app.post('/haha',
-//   passport.authenticate('local', { successRedirect: '/#/Coffees',
-//                                    failureRedirect: '/',
-//                                    failureFlash: true })
-// );
-
-//////////////Paul's Authentication//////////////
-//User validation
-// var auth = express.basicAuth(function(user, pass) {     
-//    return (user == "super" && pass == "secret");
-// },'Super duper secret area');
-
-// var HTTPauth = express.basicAuth(function(user, pass, callback) {
-//  var result = (user === 'a' && pass === 'b');
-//  callback(null /* error */, result);
-// });
-
-// function auth(req, res, next) {
-// 	var a = HTTPauth(req, res, next);
-// }
-// //Password protected area
-// app.get('/', HTTPauth, function(req, res){
-// 	res.send('test')
-// });
-//////////////Paul's Authentication//////////////
-
-
-
-
-
-// Launch server
-// app.listen(4242);
