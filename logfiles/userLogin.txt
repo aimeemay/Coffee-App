@@ -1,0 +1,7 @@
+Time:1396917316593, User:a, action:LOGIN
+
+Time:1396917775307, User:a, action:LOGIN
+Time:1396917820152, User:a, action:LOGIN
+Time:1396918000441, User:a, action:LOGIN
+Time:1396918187761, User:a, action:LOGIN
+Time:1396918189733, User:a, action:LOGOUT by User

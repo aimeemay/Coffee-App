@@ -54,6 +54,7 @@ var coffee = [
 
  // Look at the ember: http://jsbin.com/izijal/9/edit
 var express = require('express')
+  , fs = require('node-fs')
   , passport = require('passport')
   , flash = require('connect-flash')
   , LocalStrategy = require('passport-local').Strategy;
@@ -217,6 +218,17 @@ app.post('/login',
   	req.session.cookie.maxAge = sessionTime;
   	// console.log('Set session time: ', sessionTime, 'Session cookie info', req.session.cookie)
   	// console.log('res :', res); - aimee here.
+
+  	//append to log file
+  	logMessage = '\n' + 'Time:' + Date.now() + ', User:' + req.user['username'] + ', action:LOGIN'
+	fs.appendFile("logfiles/userLogin.txt", logMessage, function(err) {
+	    if(err) {
+	        console.log(err);
+	    } else {
+	        console.log('message appended:' + logMessage);
+	    }
+	}); 
+
     res.redirect('/coffees');
   });
 
@@ -237,7 +249,18 @@ app.get('/isloggedin', function(req, res){
 })
 
 app.get('/logout', function(req, res){
+    //add to log file
+  	logMessage = '\n' + 'Time:' + Date.now() + ', User:' + req.user['username'] + ', action:LOGOUT by User'
+	fs.appendFile("logfiles/userLogin.txt", logMessage, function(err) {
+	    if(err) {
+	        console.log(err);
+	    } else {
+	        console.log('message appended:' + logMessage);
+	    }
+	}); 
+
   req.logout();
+
   res.redirect('/');
 });
 
