@@ -60,6 +60,11 @@ a:visited {
   right: 10px;
 }
 
+.error {
+  color: red;
+  font-style: italic;
+}
+
 /************ sort items **************/
 #sort {
   width:100%;

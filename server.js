@@ -8,7 +8,7 @@ var coffee = [
   who_drinks_it: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
   how_to_drink: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
   gallery: ["http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300"]
-}, 
+},
 {
   name: "Latté",
   short_description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
@@ -18,17 +18,17 @@ var coffee = [
   who_drinks_it: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
   how_to_drink: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
   gallery: ["http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300"]
-}, 
+},
 {
   name: "Flate White",
-  short_description: " Ut enim ea dolorum quam quisquam beatae doloremqun.", 
+  short_description: " Ut enim ea dolorum quam quisquam beatae doloremqun.",
   long_description: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos." ,
   price: 2,
   image: "http://placehold.it/300x300",
   who_drinks_it: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
   how_to_drink: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
   gallery: ["http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300"]
-}, 
+},
 {
   name: "Piccolo",
   short_description: " Ut enim ea dolorum quam quisquam beatae doloremqun.",
@@ -38,10 +38,10 @@ var coffee = [
   who_drinks_it: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
   how_to_drink: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
   gallery: ["http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300"]
-}, 
-{ 
+},
+{
   name: "Machiato",
-  short_description: " Ut enim ea dolorum quam quisquam beatae doloremqun.", 
+  short_description: " Ut enim ea dolorum quam quisquam beatae doloremqun.",
   long_description: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos." ,
   price: 1,
   image: "http://placehold.it/300x300",
@@ -127,7 +127,7 @@ var app = express();
 // configure Express
 app.configure(function() {
   app.set('views', __dirname + '/views');
- 
+
 
   app.engine('handlebars', exphbs({defaultLayout: 'main'}));
   app.set('view engine', 'handlebars');
@@ -156,7 +156,15 @@ app.configure(function() {
 app.get('/', function(req,res) {
 	var activeSession = !(typeof req.user === "undefined")
 	if (activeSession) res.redirect('coffees');
-	res.render('index', {activeSession: activeSession, user: req.user});
+
+  var flash = req.flash();
+
+  if (flash.error) {
+    flash.error = flash.error[0];
+  }
+
+  console.log(flash)
+	res.render('index', {activeSession: activeSession, user: req.user, flash: flash});
 
 })
 

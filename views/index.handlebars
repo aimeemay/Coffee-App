@@ -4,17 +4,20 @@
 
     {{#if activeSession}}
         You are already logged in!
-    
+
     {{else}}
 
       <form action="/login" method="post">
+        {{#if flash.error}}
+            <p class="error">{{flash.error}}</p>
+        {{/if}}
         <div>
-            <label>Username:</label>
-            <input type="text" name="username"/>
+             <label>Username:</label>
+            <input type="text"     name="username"    placeholder="Username" required>
         </div>
         <div>
             <label>Password:</label>
-            <input type="password" name="password"/>
+            <input type="password" name="password" placeholder="Password" required>
         </div>
         <div>
             <label>Session Time</label>
@@ -31,7 +34,7 @@
             <input type="submit" value="Log In" id='submitLogIn'/>
         </div>
       </form>
-      
+
       <div><a href='/coffees'>Skip to Menu</a></div>
 
     {{/if}}
