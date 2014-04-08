@@ -1,7 +1,5 @@
-Time:1396917316593, User:a, action:LOGIN
-
-Time:1396917775307, User:a, action:LOGIN
-Time:1396917820152, User:a, action:LOGIN
-Time:1396918000441, User:a, action:LOGIN
-Time:1396918187761, User:a, action:LOGIN
-Time:1396918189733, User:a, action:LOGOUT by User
+Time:Tue Apr 08 2014 11:17:45 GMT+1000 (EST), User:a, action:LOGOUT by User
+Time:Tue Apr 08 2014 11:21:45 GMT+1000 (EST), User:bob, action:LOGIN
+Time:Tue Apr 08 2014 11:21:50 GMT+1000 (EST), User:bob, action:LOGOUT by User
+Time:Tue Apr 08 2014 11:23:30 GMT+1000 (EST), User:a, Action:LOGIN
+Time:Tue Apr 08 2014 11:23:35 GMT+1000 (EST), User:a, Action:LOGOUT by User

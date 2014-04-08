@@ -220,7 +220,7 @@ app.post('/login',
   	// console.log('res :', res); - aimee here.
 
   	//append to log file
-  	logMessage = '\n' + 'Time:' + Date.now() + ', User:' + req.user['username'] + ', action:LOGIN'
+  	var logMessage = '\n' + 'Time:' + new Date() + ', User:' + req.user['username'] + ', Action:LOGIN'
 	fs.appendFile("logfiles/userLogin.txt", logMessage, function(err) {
 	    if(err) {
 	        console.log(err);
@@ -250,7 +250,7 @@ app.get('/isloggedin', function(req, res){
 
 app.get('/logout', function(req, res){
     //add to log file
-  	logMessage = '\n' + 'Time:' + Date.now() + ', User:' + req.user['username'] + ', action:LOGOUT by User'
+  	var logMessage = '\n' + 'Time:' + new Date() + ', User:' + req.user['username'] + ', Action:LOGOUT by User'
 	fs.appendFile("logfiles/userLogin.txt", logMessage, function(err) {
 	    if(err) {
 	        console.log(err);
@@ -259,9 +259,9 @@ app.get('/logout', function(req, res){
 	    }
 	}); 
 
-  req.logout();
-
-  res.redirect('/');
+	//logout and redirct index
+  	req.logout();
+  	res.redirect('/');
 });
 
 app.listen(4242, function() {
