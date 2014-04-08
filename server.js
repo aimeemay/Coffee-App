@@ -64,6 +64,7 @@ var exphbs  = require('express3-handlebars');
 var users = [
     { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com' }
   , { id: 2, username: 'a', password: 'a', email: 'joe@example.com' }
+  , { id: 3, username: 'infs', password: '3202', email: 'infs3202@uq.edu.au'}
 ];
 
 function findById(id, fn) {

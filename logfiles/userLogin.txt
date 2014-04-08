@@ -3,3 +3,12 @@ Time:Tue Apr 08 2014 11:21:45 GMT+1000 (EST), User:bob, action:LOGIN
 Time:Tue Apr 08 2014 11:21:50 GMT+1000 (EST), User:bob, action:LOGOUT by User
 Time:Tue Apr 08 2014 11:23:30 GMT+1000 (EST), User:a, Action:LOGIN
 Time:Tue Apr 08 2014 11:23:35 GMT+1000 (EST), User:a, Action:LOGOUT by User
+Time:Tue Apr 08 2014 11:46:17 GMT+1000 (EST), User:infs, Action:LOGIN
+Time:Tue Apr 08 2014 11:46:24 GMT+1000 (EST), User:infs, Action:LOGOUT by User
+Time:Tue Apr 08 2014 11:46:35 GMT+1000 (EST), User:infs, Action:LOGIN
+Time:Tue Apr 08 2014 11:46:40 GMT+1000 (EST), User:infs, Action:LOGOUT by User
+Time:Tue Apr 08 2014 11:46:57 GMT+1000 (EST), User:infs, Action:LOGIN
+Time:Tue Apr 08 2014 11:47:01 GMT+1000 (EST), User:infs, Action:LOGOUT by User
+Time:Tue Apr 08 2014 11:47:21 GMT+1000 (EST), User:infs, Action:LOGIN
+Time:Tue Apr 08 2014 11:47:50 GMT+1000 (EST), User:infs, Action:LOGOUT by User
+Time:Tue Apr 08 2014 11:47:58 GMT+1000 (EST), User:infs, Action:LOGIN
