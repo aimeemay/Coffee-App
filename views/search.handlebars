@@ -1,0 +1,23 @@
+<header>
+  <h1><a href='/coffees'> < </a> Search</h1>
+</header>
+Enter search criteria below:
+<form action="/search" method="post">
+  <div>
+    <label>Coffee Name: </label>
+      <input type="text" name="name" placeholder="Coffee Name" required>
+    </div>
+    <div>
+      <label>Price: </label>
+      <select name="price">
+          <option value='none'>none</option>
+          <option value='1'>1</option>
+          <option value='2'>2</option>
+          <option value='3'>3</option>
+          <option value='4'>4</option>
+      </select>
+  </div>
+  <div>
+    <input type="submit" value="Search" id='Search'/>
+  </div>
+</form>

@@ -92,29 +92,7 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name='Coffees'>
-    <header>
-      <h1>THE REAL COFFEE MENU</h1>
-    </header>
-    <div id='sort'>
-      {{#link-to 'Coffees' (query-params sort="price") tagName='div' class='button link'}}Sort By Price{{/link-to}}
-      {{#link-to 'Coffees' (query-params sort="name") tagName='div' class='button link'}}Sort By Name{{/link-to}}
-      {{!-- <a href="#" {{action sort 'sortfunction'}}> Sort by Name</a> --}}
-    </div>
-    {{#each .}}
-        {{#link-to 'Coffee' this tagName='div' class='coffees link box'}}
-          <img {{bind-attr src='image'}} class='w45'/>
-          <div class='w50 text'>
-            <h2>{{name}}</h2>
-            <p>{{short_description}}</p>
-            <p>Price: {{price}}</p>
-          </div>
-          <div class='w5 arrow'>
-            >
-          </div>
 
-        {{/link-to}}
-    {{/each}}
-  </script>
 
   <script type="text/x-handlebars" data-template-name='Coffee'>
     <header>

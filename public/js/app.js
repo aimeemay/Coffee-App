@@ -11,6 +11,7 @@ App.Router.map(function() {
     this.resource('Gallery');
     this.resource('Reviews');
   });
+  this.route('search');
 });
 
 

@@ -15,7 +15,6 @@ App.Router.map(function() {
   this.route('login', {path: '/login'})
   this.route('edit', {path: '/:id/edit'});
   this.route('add', {path: '/add'});
-  this.route('delete', {path: '/:id/delete'});
 });
 
 App.IndexRoute = Ember.Route.extend({
@@ -55,15 +54,6 @@ App.AddRoute = Ember.Route.extend({
   }
 });
 
-App.DeleteRoute = Ember.Route.extend({
-    beforeModel: function(){
-        if (!isLoggedinAsAdmin) this.transitionTo('login')
-    },
-    model: function(params){
-      return this.store.find('coffee', params.id);
-    }
-})
-
 App.LoginController = Ember.Controller.extend({
   actions: {
     login: function(){
@@ -94,14 +84,15 @@ App.EditController = Ember.ObjectController.extend({
   }
 });
 
-App.DeleteController = Ember.ObjectController.extend({
+App.IndexController = Ember.ObjectController.extend({
   actions: {
-    deleteCoffee: function() {
-      var id = this.get('model').get('id');
-      console.log(id);
-      var deletedCoffee = this.store.find('coffee', id);
-      console.log(deletedCoffee);
-      deletedCoffee.destroyRecord();  // DELETE to /coffees/:id
+    deleteCoffee: function(a) {
+      if(confirm('Are you sure you want to delete?')){
+        this.store.find('coffee', a.id).then(function(del){
+          del.destroyRecord();
+          console.log('Deleting project', a)
+        });
+      }
     }
   }
 });

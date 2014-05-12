@@ -80,7 +80,6 @@ passport.use(new LocalStrategy(
   }
 ));
 
-
 var app = express();
 
 // configure Express
@@ -110,7 +109,6 @@ app.configure(function() {
 });
 
 
-
 // Main route
 app.get('/', function(req,res) {
 	var activeSession = !(typeof req.user === "undefined")
@@ -124,7 +122,6 @@ app.get('/', function(req,res) {
 
   console.log(flash)
 	res.render('index', {activeSession: activeSession, user: req.user, flash: flash});
-
 })
 
 
@@ -142,6 +139,11 @@ app.get('/coffees/:sort?', function(req, res){
 		  res.render('coffees', {coffee: docs})
     });
 	}
+})
+
+//Coffee route - i.e. individual coffee type pages
+app.get('/search', function(req, res) {
+  res.render('search')
 })
 
 //Coffee route - i.e. individual coffee type pages
@@ -186,6 +188,29 @@ app.post('/login',
     res.redirect('/coffees');
   });
 
+app.post('/search', function(req, res) {
+  var name = req.body.name
+  var price = req.body.price
+  console.log(name + '   ' + price)
+
+  if (price === 'none') {
+    coffee.find({'name': name}).toArray(function(err, docs){
+      res.render('/coffees', docs)
+      console.log(docs);
+    });
+  } else if (name === '') {
+    coffee.find({'price': price}).toArray(function(err, docs){
+      // res.render('/coffees', docs)
+      console.log(docs);
+    });
+  } else {
+    coffee.find({'name': name}, {'price': price}).toArray(function(err, docs){
+      // res.render('/coffees', docs)
+      console.log(docs);
+    });
+  }
+})
+
 app.get('/admin', 
   // passport.authenticate('local', { failureRedirect: '/', failureFlash: true }), 
   function(req, res) {
@@ -224,11 +249,8 @@ app.get('/logout', function(req, res){
   	res.redirect('/');
 });
 
-
-
-
-///
-//// Mongo needs to be implemented from here!!!!
+////////////////////////////////////
+//admin stuff in ember begins here!!
 
 app.get('/api/v1/coffees', function (req, res) {
 
@@ -286,10 +308,11 @@ app.put("/api/v1/coffees/:id", function(req, res){
 //DELETE of coffee item
 app.delete("/api/v1/coffees/:id", function(req, res){
   //Get deleted coffee data's ID
-  var deletedCoffeeID = req.params.id
+  var deletedCoffeeID = req.params.id.toString();
+    console.log(deletedCoffeeID);
 
   //Save to database 
-  coffee.delete({"_id" : deletedCoffeeID}, function(){
+  coffee.remove({ _id : { "$oid" : deletedCoffeeID}}, function(){
     if (err) res.send(400, err);
     res.send(200);
   })
