@@ -1,0 +1,10 @@
+ <h1>edit {{name}}</h1>
+    <ul>
+      <li>name : {{textarea valueBinding='name'}}</li>
+      <li>short description : {{textarea valueBinding='short_description'}}</li>
+      <li>long description: {{textarea valueBinding='long_description'}}</li>
+      <li>price : {{view Ember.Select content=prices valueBinding='price'}}</li>
+      <li>how to drink : {{textarea valueBinding='how_to_drink'}}</li>
+      <li>who drinks it : {{textarea valueBinding='who_drinks_it'}}</li>
+    </ul>
+    <button {{action 'editCoffee'}}>Edit</button>

@@ -1,63 +1,11 @@
-var coffee = [
-{
-  name: "Capuccino",
-  short_description: " Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
-  long_description: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos." ,
-  price: 2,
-  image: "http://placehold.it/300x300",
-  who_drinks_it: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
-  how_to_drink: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
-  gallery: ["http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300"]
-},
-{
-  name: "Latté",
-  short_description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-  long_description: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos." ,
-  price: 2,
-  image: "http://placehold.it/300x300",
-  who_drinks_it: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
-  how_to_drink: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
-  gallery: ["http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300"]
-},
-{
-  name: "Flate White",
-  short_description: " Ut enim ea dolorum quam quisquam beatae doloremqun.",
-  long_description: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos." ,
-  price: 2,
-  image: "http://placehold.it/300x300",
-  who_drinks_it: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
-  how_to_drink: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
-  gallery: ["http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300"]
-},
-{
-  name: "Piccolo",
-  short_description: " Ut enim ea dolorum quam quisquam beatae doloremqun.",
-  long_description: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos." ,
-  price: 2,
-  image: "http://placehold.it/300x300",
-  who_drinks_it: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
-  how_to_drink: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
-  gallery: ["http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300"]
-},
-{
-  name: "Machiato",
-  short_description: " Ut enim ea dolorum quam quisquam beatae doloremqun.",
-  long_description: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos." ,
-  price: 1,
-  image: "http://placehold.it/300x300",
-  who_drinks_it: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
-  how_to_drink: "Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos. Velit reiciendis voluptas assumenda doloremque temporibus nisi quos.",
-  gallery: ["http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300", "http://placehold.it/300x300"]
-}
-  ];
-
-
  // Look at the ember: http://jsbin.com/izijal/9/edit
 var express = require('express')
   , fs = require('node-fs')
   , passport = require('passport')
   , flash = require('connect-flash')
   , LocalStrategy = require('passport-local').Strategy;
+
+var mongo = require('mongodb')
 
 var exphbs  = require('express3-handlebars');
 
@@ -87,6 +35,16 @@ function findByUsername(username, fn) {
 }
 
 
+////////////////
+var MONGOHQ_URL='mongodb://aimee:test@oceanic.mongohq.com:10055/app25064625';
+
+
+mongo.Db.connect(MONGOHQ_URL, function (err, db) {
+
+  // Setup coffees array 
+  var coffee = db.collection('coffees');
+    
+
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.  Typically,
@@ -108,7 +66,6 @@ passport.use(new LocalStrategy(
   function(username, password, done) {
     // asynchronous verification, for effect...
     process.nextTick(function () {
-
       // Find the user by username.  If there is no user with the given
       // username, or the password is not correct, set the user to `false` to
       // indicate failure and set a flash message.  Otherwise, return the
@@ -180,35 +137,31 @@ app.get('/coffees/:sort?', function(req, res){
 	if (sortBy !== "name" && sortBy !== "price") {
 		res.end("404 sort this way doens't exist");
 	} else {
-
-		var sortedCoffee = coffee.sort(function(a,b){
-	        return a[sortBy] > b[sortBy];
-	    });
-
-		res.render('coffees', {coffee: sortedCoffee})
+		// All coffees sorted by the sortBy variable
+    coffee.find({}).sort({sortBy:1}).toArray(function(err, docs){
+		  res.render('coffees', {coffee: docs})
+    });
 	}
 })
 
 //Coffee route - i.e. individual coffee type pages
 app.get('/coffee/:name', function(req, res) {
-	var selectedCoffee = coffee.filter(function(a) {
-		return req.params.name === a.name;
-	})[0]
-	res.render('coffeeOverview', selectedCoffee)
+	coffee.find({'name':req.params.name}).toArray(function(err, docs){
+      console.log(docs)
+	    res.render('coffeeOverview', docs[0])
+  })
 })
 
 app.get('/coffee/:name/gallery', function(req, res) {
-	var selectedCoffee = coffee.filter(function(a) {
-		return req.params.name === a.name;
-	})[0]
-	res.render('coffeeGallery', selectedCoffee)
+	coffee.find({'name':req.params.name}).toArray(function(err, docs){
+    res.render('coffeeGallery', docs[0])
+  });
 })
 
 app.get('/coffee/:name/reviews', function(req, res) {
-	var selectedCoffee = coffee.filter(function(a) {
-		return req.params.name === a.name;
-	})[0]
-	res.render('coffeeReviews', selectedCoffee)
+  coffee.find({'name':req.params.name}).toArray(function(err, docs){
+	 res.render('coffeeReviews', docs[0])
+  });
 })
 
 //Login route
@@ -222,7 +175,7 @@ app.post('/login',
 
   	//append to log file
   	var logMessage = '\n' + 'Time:' + new Date() + ', User:' + req.user['username'] + ', Action:LOGIN'
-	fs.appendFile("logfiles/userLogin.txt", logMessage, function(err) {
+	  fs.appendFile("logfiles/userLogin.txt", logMessage, function(err) {
 	    if(err) {
 	        console.log(err);
 	    } else {
@@ -232,6 +185,12 @@ app.post('/login',
 
     res.redirect('/coffees');
   });
+
+app.get('/admin', 
+  // passport.authenticate('local', { failureRedirect: '/', failureFlash: true }), 
+  function(req, res) {
+  res.render('admin', {layout: false})
+});
 
 
 app.get('/isloggedin', function(req, res){
@@ -250,7 +209,7 @@ app.get('/isloggedin', function(req, res){
 })
 
 app.get('/logout', function(req, res){
-    //add to log file
+  //add to log file
   	var logMessage = '\n' + 'Time:' + new Date() + ', User:' + req.user['username'] + ', Action:LOGOUT by User'
 	fs.appendFile("logfiles/userLogin.txt", logMessage, function(err) {
 	    if(err) {
@@ -265,33 +224,81 @@ app.get('/logout', function(req, res){
   	res.redirect('/');
 });
 
+
+
+
+///
+//// Mongo needs to be implemented from here!!!!
+
+app.get('/api/v1/coffees', function (req, res) {
+
+  coffee.find({}).toArray(function(err, docs){
+    if (err) res.send(400, err)
+     res.json({'coffees': docs});
+  });
+  
+});
+
+//POST of a new coffee item
+app.post('/api/v1/coffees', function (req, res) {
+  //Get new coffee data
+  var newCoffeeData = req.body.coffee
+
+  //Build new coffee object
+  var newCoffeeObj = {
+    name : newCoffeeData.name,
+    short_description : newCoffeeData.short_description,
+    long_description : newCoffeeData.long_description,
+    price : newCoffeeData.price,
+    image : '',
+    who_drinks_it: newCoffeeData.who_drinks_it,
+    how_to_drink: newCoffeeData.how_to_drink,
+    gallery: []
+  }
+
+  //Insert to database
+  coffee.insert(newCoffeeObj, function(err){
+    res.send(200);
+  });
+
+});
+
+app.get("/api/v1/coffees/:id", function(req, res){
+  coffee.find({'name':req.params.id}).toArray(function(err, docs){
+    res.render('coffeeGallery', docs[0])
+  });
+});
+
+//PUT of coffee item edit
+app.put("/api/v1/coffees/:id", function(req, res){
+  //Get edited coffee data
+  var editedCoffeeObj = req.body.coffee
+  editedCoffeeObj._id = req.params.id //set id
+
+  //Save to database 
+  coffee.save(editedCoffeeObj, function(){
+    if (err) res.send(400, err);
+    res.send(200);
+  })
+
+});
+
+//DELETE of coffee item
+app.delete("/api/v1/coffees/:id", function(req, res){
+  //Get deleted coffee data's ID
+  var deletedCoffeeID = req.params.id
+
+  //Save to database 
+  coffee.delete({"_id" : deletedCoffeeID}, function(){
+    if (err) res.send(400, err);
+    res.send(200);
+  })
+
+});
+
 app.listen(4242, function() {
   console.log('Express server listening on port 4242');
 });
 
 
-// // Simple route middleware to ensure user is authenticated.
-// //   Use this route middleware on any resource that needs to be protected.  If
-// //   the request is authenticated (typically via a persistent login session),
-// //   the request will proceed.  Otherwise, the user will be redirected to the
-// //   login page.
-// function ensureAuthenticated(req, res, next) {
-//   if (req.isAuthenticated()) { return next(); } //what is passed into req? the user? - aimee
-//   res.redirect('/')
-// }
-
-//////////////NEXT PRAC//////////////
-// app.get('/api', function (req, res) {
-//   coffee_list = coffee.map(function(x){
-//   	return { name: x.name, short_description: x.short_description, price: x.price};
-//   })
-//   res.send(coffee_list);
-// });
-
-// app.get("/api/:name", function(req, res){
-// 	res.send(coffee.filter(function(a) {
-// 		return req.params.name === a.name;
-// 	}))
-// })
-//////////////NEXT PRAC//////////////
-
+}); //mongo

@@ -1,0 +1,11 @@
+ <ul>
+    {{#each item in model}}
+      <li>{{item.name}}
+       {{! Injecting the object here means it wont have to access the store again on click }}
+      {{#link-to 'edit' item}}Edit{{/link-to}}
+      {{#link-to 'delete' item}}Delete{{/link-to}}
+      </li>
+    {{/each}}
+
+    {{#link-to 'add'}}Add New Coffee{{/link-to}}
+    </ul>

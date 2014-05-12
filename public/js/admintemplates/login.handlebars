@@ -1,0 +1,22 @@
+Login Page
+
+{{#if user}}
+
+Already logged in.<br>
+<button {{action 'logout'}}> Logout</button>
+
+
+{{else}}
+
+
+
+
+<br>
+<br>
+ <input id='1' type="text" name="name" placeholder='Username'><br>
+ <input id='2' type="text" name="password" placeholder='Password'><br>
+<br>
+
+<button {{action 'login'}}> Login</button>
+
+{{/if}}
