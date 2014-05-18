@@ -195,18 +195,18 @@ app.post('/search', function(req, res) {
 
   if (price === 'none') {
     coffee.find({'name': name}).toArray(function(err, docs){
-      res.render('/coffees', docs)
       console.log(docs);
+      res.render('coffees', {coffee: docs, filtersOn : true})
     });
   } else if (name === '') {
     coffee.find({'price': price}).toArray(function(err, docs){
-      // res.render('/coffees', docs)
       console.log(docs);
+      res.render('coffees', {coffee: docs, filtersOn : true})
     });
   } else {
-    coffee.find({'name': name}, {'price': price}).toArray(function(err, docs){
-      // res.render('/coffees', docs)
+    coffee.find({'name': name, 'price' : price}).toArray(function(err, docs){
       console.log(docs);
+      res.render('coffees', {coffee: docs, filtersOn : true})
     });
   }
 })
@@ -282,7 +282,6 @@ app.post('/api/v1/coffees', function (req, res) {
   coffee.insert(newCoffeeObj, function(err){
     res.send(200);
   });
-
 });
 
 app.get("/api/v1/coffees/:id", function(req, res){
@@ -312,7 +311,7 @@ app.delete("/api/v1/coffees/:id", function(req, res){
     console.log(deletedCoffeeID);
 
   //Save to database 
-  coffee.remove({ _id : { "$oid" : deletedCoffeeID}}, function(){
+  coffee.remove({ name : "test"}, function(){
     if (err) res.send(400, err);
     res.send(200);
   })

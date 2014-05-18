@@ -119,14 +119,14 @@ App.AddController = Ember.ObjectController.extend({
 
       //Save the coffee
       coffee.save().then(function() {}, function(){ //HACK necessary because it thinks post isn't successful?
-          //clear controller variables
           console.log('got here')
-          this.set('name', '');
-          this.set('short_description', '');
-          this.set('long_description', '');
-          this.set('price', '');
-          this.set('who_drinks_it', '');
-          this.set('how_to_drink', '');
+          //clear controller variables
+          // this.set('name', '');
+          // this.set('short_description', '');
+          // this.set('long_description', '');
+          // this.set('price', '');
+          // this.set('who_drinks_it', '');
+          // this.set('how_to_drink', '');
           this.transitionToRoute('index').then(
            function() {location.reload();}
           );
@@ -153,6 +153,12 @@ App.Coffee = DS.Model.extend({
     who_drinks_it: DS.attr(),
     how_to_drink: DS.attr(),
     gallery: DS.attr()
+})
+
+App.Reviews = DS.Model.extend({
+  user: DS.attr(),
+  created: DS.attr(),
+  content: DS.attr()
 })
 
 

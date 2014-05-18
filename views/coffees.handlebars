@@ -6,20 +6,30 @@
   <a href='/coffees/name'><div class="button link">Sort By Name</div></a>
 </div> --}}
 
-<a href="../search">Search</a>
+{{!-- {{#if coffee = ""}}
+  <p><a href="../search">Back to Search</a><p>
+  <p>Nothing found on search criteria.</p>
+{{else}} --}}
 
-{{#each coffee}}
-    <a href="/coffee/{{name}}">
-      <div class="coffees link box">
-        <img src="{{image}}" class='w45'/>
-        <div class='w50 text'>
-          <h2>{{name}}</h2>
-          <p>{{short_description}}</p>
-          <p>Price: {{price}}</p>
+  <p><a href="../search">Search</a><p>
+  {{#if filtersOn}}
+    <p><a href="/coffees">Clear Filters</a></p>
+  {{/if}}
+
+  {{#each coffee}}
+      <a href="/coffee/{{name}}">
+        <div class="coffees link box">
+          <img src="{{image}}" class='w45'/>
+          <div class='w50 text'>
+            <h2>{{name}}</h2>
+            <p>{{short_description}}</p>
+            <p>Price: {{price}}</p>
+          </div>
+          <div class='w5 arrow'>
+            >
+          </div>
         </div>
-        <div class='w5 arrow'>
-          >
-        </div>
-      </div>
-    </a>
-{{/each}}
+      </a>
+  {{/each}}
+
+{{!-- {{/if}} --}}
