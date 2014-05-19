@@ -102,10 +102,7 @@ App.CoffeeReviewsController = Ember.ObjectController.extend({
       var id = this.get('model.id')
       var controller = this
       this.store.find('coffee', id).then(function(a) {
-        // console.log(a)
-        var reviews = a.get('reviews')
-        reviews.addObject(review)
-
+        a.get('reviews').addObject(review)
         a.save();
         controller.set('reviewContent', '');
       })

@@ -8,11 +8,10 @@
 
 {{!-- {{#if coffee = ""}}
   <p><a href="../search">Back to Search</a><p>
-  <p>Nothing found on search criteria.</p>
+  <p>Nothing found here...</p>
 {{else}} --}}
 
 <div>
-  
   {{#link-to 'search'}}Advanced Search{{/link-to}}
   {{#if filtersOn}}
     <p><a href="/coffees">Clear Filters</a></p>
@@ -31,7 +30,6 @@
         </div>
       {{/link-to}}
   {{/each}}
-
 </div>
 
-{{!-- {{/if}} --}}
+{{/if}}

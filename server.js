@@ -295,9 +295,13 @@ app.post('/api/v1/coffees', function (req, res) {
 //PUT of coffee item edit
 app.put("/api/v1/coffees/:id", function(req, res){
   var editedCoffeeObj = req.body.coffee
-  editedCoffeeObj._id = req.params.id //set id
+  // console.log(editedCoffeeObj);
 
-  coffee.save(editedCoffeeObj, function(){
+  // coffee.save(editedCoffeeObj, function(){
+  //   if (err) res.send(400, err);
+  //   res.send(200);
+  // })
+  coffee.update({'_id': new ObjectID(req.params.id)}, editedCoffeeObj, function() {
     if (err) res.send(400, err);
     res.send(200);
   })
