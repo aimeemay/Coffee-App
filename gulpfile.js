@@ -14,4 +14,8 @@ gulp.task('templates', function(){
 
 gulp.task('default', function() {
     gulp.start('templates');
+    gulp.watch('public/js/templates/*.handlebars', function(event) {
+    	gulp.start('templates');
+    })
 });
+

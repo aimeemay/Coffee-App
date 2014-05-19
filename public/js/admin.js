@@ -12,11 +12,12 @@ App = Ember.Application.create();
 var isLoggedinAsAdmin = true;
 
 App.Router.map(function() {
-  this.route('coffeeMenu', {path: 'coffeeMenu'}, function() {});
-  this.resource('coffeeItem', {path: 'coffeeItem/:id'}, function() {
-    this.route('coffeeOverview')
-    this.route('coffeeGallery');
-    this.route('coffeeReviews');
+  this.route('coffees', {path: 'coffees'});
+  this.route('search', {path: 'search'});
+  this.resource('coffee', {path: 'coffee/:id'}, function() {
+    this.route('overview', {path: '/'});
+    this.route('gallery');
+    this.route('reviews');
   });
   this.route('admin', {path: '/admin'});
   this.route('login', {path: '/admin/login'})
@@ -24,16 +25,13 @@ App.Router.map(function() {
   this.route('add', {path: '/admin/add'});
 });
 
-App.CoffeeMenuRoute = Ember.Route.extend({
+App.CoffeesRoute = Ember.Route.extend({
   model: function() {
     return this.store.find('coffee');
-    // return Ember.$.getJSON('/api/v1/coffees').then(function(data) {
-    //   return data.coffees;
-    // });
   }
 });
 
-App.CoffeeOverviewRoute = Ember.Route.extend({
+App.CoffeeRoute = Ember.Route.extend({
   model: function(params){
     return this.store.find('coffee', params.id);
   }
@@ -92,6 +90,28 @@ App.LoginController = Ember.Controller.extend({
     }
   }
 })
+
+App.CoffeeReviewsController = Ember.ObjectController.extend({
+  reviewContent : '',
+  actions: {
+    addReview: function() {
+      var d = new Date();
+      var reviewTimestamp = d.getDay()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
+      var reviewContent = this.get('reviewContent')
+      var review = {content: reviewContent, timestamp: reviewTimestamp};
+      var id = this.get('model.id')
+      var controller = this
+      this.store.find('coffee', id).then(function(a) {
+        // console.log(a)
+        var reviews = a.get('reviews')
+        reviews.addObject(review)
+
+        a.save();
+        controller.set('reviewContent', '');
+      })
+    }
+  }
+});
 
 App.EditController = Ember.ObjectController.extend({
   prices : [1, 2, 3, 4],
@@ -164,21 +184,15 @@ App.CoffeeSerializer = DS.RESTSerializer.extend({
 });
 
 App.Coffee = DS.Model.extend({
-    name: DS.attr(),
-    short_description: DS.attr(),
-    long_description: DS.attr(),
-    price: DS.attr(),
-    image: DS.attr(),
-    who_drinks_it: DS.attr(),
-    how_to_drink: DS.attr(),
-    gallery: DS.attr(),
-    reviews: DS.hasMany('reviews')
-})
-
-App.Reviews = DS.Model.extend({
-  user: DS.attr(),
-  created: DS.attr(),
-  content: DS.attr()
+  name: DS.attr(),
+  short_description: DS.attr(),
+  long_description: DS.attr(),
+  price: DS.attr(),
+  image: DS.attr(),
+  who_drinks_it: DS.attr(),
+  how_to_drink: DS.attr(),
+  gallery: DS.attr(),
+  reviews: DS.attr()
 })
 
 

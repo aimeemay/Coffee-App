@@ -1,0 +1,10 @@
+    <header>
+      <h1>{{#link-to 'coffees'}} < {{/link-to}} {{name}}</h1>
+    </header>
+    <nav id='coffeeNav' class='link'>
+      <ul>
+        {{#link-to 'coffee' tagName='li'}}Overview{{/link-to}}{{#link-to 'coffee.gallery' model tagName='li'}}Gallery{{/link-to}}{{#link-to 'coffee.reviews' model tagName='li'}}Reviews{{/link-to}}
+      </ul>
+    </nav>
+
+    {{outlet}}

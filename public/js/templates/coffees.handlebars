@@ -11,13 +11,15 @@
   <p>Nothing found on search criteria.</p>
 {{else}} --}}
 
-  <p><a href="../search">Search</a><p>
+<div>
+  
+  {{#link-to 'search'}}Advanced Search{{/link-to}}
   {{#if filtersOn}}
     <p><a href="/coffees">Clear Filters</a></p>
   {{/if}}
 
   {{#each content}}
-      {{#link-to 'coffeeItem' this}}
+      {{#link-to 'coffee' this}}
         <div class="coffees link box">
           <img {{bind-attr src="image"}} class='w45'/>
           <div class='w50 text'>
@@ -25,11 +27,11 @@
             <p>{{short_description}}</p>
             <p>Price: {{price}}</p>
           </div>
-          <div class='w5 arrow'>
-            >
-          </div>
+          <div class='w5 arrow'></div>
         </div>
       {{/link-to}}
   {{/each}}
+
+</div>
 
 {{!-- {{/if}} --}}

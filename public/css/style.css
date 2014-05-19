@@ -146,6 +146,10 @@ a:visited {
   width:24%;
 }
 
+/************ coffee item > reviews **************/
+.reviews {
+  text-align:center
+}
 
 /************ helpers **************/
 .w45 {

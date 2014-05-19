@@ -5,7 +5,8 @@ var express = require('express')
   , flash = require('connect-flash')
   , LocalStrategy = require('passport-local').Strategy;
 
-var mongo = require('mongodb')
+var mongo = require('mongodb');
+var ObjectID = mongo.ObjectID
 
 var exphbs  = require('express3-handlebars');
 
@@ -37,7 +38,6 @@ function findByUsername(username, fn) {
 
 ////////////////
 var MONGOHQ_URL='mongodb://aimee:test@oceanic.mongohq.com:10055/app25064625';
-
 
 mongo.Db.connect(MONGOHQ_URL, function (err, db) {
 
@@ -141,30 +141,30 @@ app.configure(function() {
 // 	}
 // })
 
-//Search route
-app.get('/search', function(req, res) {
-  res.render('search')
-})
+// //Search route
+// app.get('/search', function(req, res) {
+//   res.render('search')
+// })
 
-//Coffee route - i.e. individual coffee type pages
-app.get('/coffee/:name', function(req, res) {
-	coffee.find({'name':req.params.name}).toArray(function(err, docs){
-      console.log(docs)
-	    res.render('coffeeOverview', docs[0])
-  })
-})
+// //Coffee route - i.e. individual coffee type pages
+// app.get('/coffee/:name', function(req, res) {
+// 	coffee.find({'name':req.params.name}).toArray(function(err, docs){
+//       console.log(docs)
+// 	    res.render('coffeeOverview', docs[0])
+//   })
+// })
 
-app.get('/coffee/:name/gallery', function(req, res) {
-	coffee.find({'name':req.params.name}).toArray(function(err, docs){
-    res.render('coffeeGallery', docs[0])
-  });
-})
+// app.get('/coffee/:name/gallery', function(req, res) {
+// 	coffee.find({'name':req.params.name}).toArray(function(err, docs){
+//     res.render('coffeeGallery', docs[0])
+//   });
+// })
 
-app.get('/coffee/:name/reviews', function(req, res) {
-  coffee.find({'name':req.params.name}).toArray(function(err, docs){
-	 res.render('coffeeReviews', docs[0])
-  });
-})
+// app.get('/coffee/:name/reviews', function(req, res) {
+//   coffee.find({'name':req.params.name}).toArray(function(err, docs){
+// 	 res.render('coffeeReviews', docs[0])
+//   });
+// })
 
 //Login route
 app.post('/login',
@@ -183,8 +183,7 @@ app.post('/login',
 	    } else {
 	        console.log('message appended:' + logMessage);
 	    }
-	}); 
-
+	  }); 
     res.redirect('/coffees');
   });
 
@@ -205,7 +204,6 @@ app.post('/search', function(req, res) {
     });
   } else {
     coffee.find({'name': name, 'price' : price}).toArray(function(err, docs){
-      console.log(docs);
       res.render('coffees', {coffee: docs, filtersOn : true})
     });
   }
@@ -243,29 +241,40 @@ app.get('/logout', function(req, res){
 	        console.log('message appended:' + logMessage);
 	    }
 	}); 
-
 	//logout and redirct index
   	req.logout();
   	res.redirect('/');
 });
 
-////////////////////////////////////
-//admin stuff in ember begins here!!
-
 app.get('/api/v1/coffees', function (req, res) {
-
   coffee.find({}).toArray(function(err, docs){
     if (err) res.send(400, err)
      res.json({'coffees': docs});
   });
-  
+});
+
+app.get("/api/v1/coffees/:id", function(req, res){
+  coffee.find({'_id': new ObjectID(req.params.id)}).toArray(function(err, docs){
+    res.json({'coffees': docs[0]})
+  });
+});
+app.get("/api/v1/coffees/:id/gallery", function(req, res){
+  coffee.find({'_id': new ObjectID(req.params.id)}).toArray(function(err, docs){
+    res.json({'coffees': docs[0]})
+  });
+});
+app.get("/api/v1/coffees/:id/reviews", function(req, res){
+  coffee.find({'_id': new ObjectID(req.params.id)}).toArray(function(err, docs){
+    console.log(req.params.id);
+    console.log(docs);
+    res.json({'coffees': docs[0]})
+  });
 });
 
 //POST of a new coffee item
 app.post('/api/v1/coffees', function (req, res) {
   //Get new coffee data
   var newCoffeeData = req.body.coffee
-
   //Build new coffee object
   var newCoffeeObj = {
     name : newCoffeeData.name,
@@ -277,50 +286,33 @@ app.post('/api/v1/coffees', function (req, res) {
     how_to_drink: newCoffeeData.how_to_drink,
     gallery: []
   }
-
   //Insert to database
   coffee.insert(newCoffeeObj, function(err){
     res.send(200);
   });
 });
 
-app.get("/api/v1/coffees/:id", function(req, res){
-  coffee.find({'name':req.params.id}).toArray(function(err, docs){
-    res.render('coffeeGallery', docs[0])
-  });
-});
-
 //PUT of coffee item edit
 app.put("/api/v1/coffees/:id", function(req, res){
-  //Get edited coffee data
   var editedCoffeeObj = req.body.coffee
   editedCoffeeObj._id = req.params.id //set id
 
-  //Save to database 
   coffee.save(editedCoffeeObj, function(){
     if (err) res.send(400, err);
     res.send(200);
   })
-
 });
 
 //DELETE of coffee item
 app.delete("/api/v1/coffees/:id", function(req, res){
-  //Get deleted coffee data's ID
-  var deletedCoffeeID = req.params.id.toString();
-    console.log(deletedCoffeeID);
-
-  //Save to database 
-  coffee.remove({ name : "test"}, function(){
+  coffee.remove({_id : new ObjectID(req.params.id)}, function(){
     if (err) res.send(400, err);
     res.send(200);
   })
-
 });
 
 app.listen(4242, function() {
   console.log('Express server listening on port 4242');
 });
-
 
 }); //mongo

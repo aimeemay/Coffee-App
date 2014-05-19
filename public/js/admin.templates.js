@@ -78,16 +78,69 @@ function program4(depth0,data) {
 Ember.TEMPLATES["application"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1;
+  var stack1;
 
 
-  data.buffer.push("\n    ");
+  stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  else { data.buffer.push(''); }
+  
+});
+Ember.TEMPLATES["coffee"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing;
+
+function program1(depth0,data) {
+  
+  
+  data.buffer.push(" < ");
+  }
+
+function program3(depth0,data) {
+  
+  
+  data.buffer.push("Overview");
+  }
+
+function program5(depth0,data) {
+  
+  
+  data.buffer.push("Gallery");
+  }
+
+function program7(depth0,data) {
+  
+  
+  data.buffer.push("Reviews");
+  }
+
+  data.buffer.push("    <header>\n      <h1>");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "coffees", options) : helperMissing.call(depth0, "link-to", "coffees", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push(" ");
+  stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("</h1>\n    </header>\n    <nav id='coffeeNav' class='link'>\n      <ul>\n        ");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{
+    'tagName': ("li")
+  },hashTypes:{'tagName': "STRING"},hashContexts:{'tagName': depth0},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "coffee", options) : helperMissing.call(depth0, "link-to", "coffee", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{
+    'tagName': ("li")
+  },hashTypes:{'tagName': "STRING"},hashContexts:{'tagName': depth0},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "coffee.gallery", "model", options) : helperMissing.call(depth0, "link-to", "coffee.gallery", "model", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{
+    'tagName': ("li")
+  },hashTypes:{'tagName': "STRING"},hashContexts:{'tagName': depth0},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "coffee.reviews", "model", options) : helperMissing.call(depth0, "link-to", "coffee.reviews", "model", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n      </ul>\n    </nav>\n\n    ");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   return buffer;
   
 });
-Ember.TEMPLATES["coffeeGallery"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["coffee/gallery"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, self=this;
@@ -118,47 +171,13 @@ function program1(depth0,data,depth1) {
   return buffer;
   
 });
-Ember.TEMPLATES["coffeeItem"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
-this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing;
-
-function program1(depth0,data) {
-  
-  
-  data.buffer.push("<");
-  }
-
-function program3(depth0,data) {
-  
-  
-  data.buffer.push("Overview");
-  }
-
-  data.buffer.push("    <header>\n      <h1>");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "coffeeMenu", options) : helperMissing.call(depth0, "link-to", "coffeeMenu", options));
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(" ");
-  stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</h1>\n    </header>\n    <nav id='coffeeNav' class='link'>\n      <ul>\n        ");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{
-    'tagName': ("li")
-  },hashTypes:{'tagName': "STRING"},hashContexts:{'tagName': depth0},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "coffeeItem", options) : helperMissing.call(depth0, "link-to", "coffeeItem", options));
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n      </ul>\n    </nav>\n\n    ");
-  stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  return buffer;
-  
-});
-Ember.TEMPLATES["coffeeItem/Index"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["coffee/overview"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, escapeExpression=this.escapeExpression;
 
 
-  data.buffer.push("  \n\n<div id='Overview'>\n  <div class='coffeeOverview box'>\n    <h2>Overview</h2>\n    <div>\n      <p>");
+  data.buffer.push("<div id='Overview'>\n  <div class='coffeeOverview box'>\n    <h2>Overview</h2>\n    <div>\n      <p>");
   stack1 = helpers._triageMustache.call(depth0, "short_description", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</p>\n      <p>Price: ");
@@ -182,27 +201,63 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   return buffer;
   
 });
-Ember.TEMPLATES["coffeeMenu"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["coffee/reviews"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
+  var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 function program1(depth0,data) {
+  
+  var buffer = '', stack1;
+  data.buffer.push("\n  <div class='reviews box'>\n  	<h2>");
+  stack1 = helpers._triageMustache.call(depth0, "review.timestamp", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("</h2>\n  	<p>");
+  stack1 = helpers._triageMustache.call(depth0, "review.content", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("</p>\n  </div>\n");
+  return buffer;
+  }
+
+  stack1 = helpers.each.call(depth0, "review", "in", "model.reviews", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n\n<div class='reviews box'>\n	<h2>Add a Review</h2>\n      ");
+  data.buffer.push(escapeExpression((helper = helpers.textarea || (depth0 && depth0.textarea),options={hash:{
+    'valueBinding': ("reviewContent")
+  },hashTypes:{'valueBinding': "STRING"},hashContexts:{'valueBinding': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
+  data.buffer.push("\n    <button ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "addReview", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">Add Review</button>\n</div>");
+  return buffer;
+  
+});
+Ember.TEMPLATES["coffees"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
+
+function program1(depth0,data) {
+  
+  
+  data.buffer.push("Advanced Search");
+  }
+
+function program3(depth0,data) {
   
   
   data.buffer.push("\n    <p><a href=\"/coffees\">Clear Filters</a></p>\n  ");
   }
 
-function program3(depth0,data) {
+function program5(depth0,data) {
   
   var buffer = '', stack1, helper, options;
   data.buffer.push("\n      ");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "coffeeItem", "", options) : helperMissing.call(depth0, "link-to", "coffeeItem", "", options));
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "coffee", "", options) : helperMissing.call(depth0, "link-to", "coffee", "", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n  ");
   return buffer;
   }
-function program4(depth0,data) {
+function program6(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n        <div class=\"coffees link box\">\n          <img ");
@@ -218,29 +273,20 @@ function program4(depth0,data) {
   data.buffer.push("</p>\n            <p>Price: ");
   stack1 = helpers._triageMustache.call(depth0, "price", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</p>\n          </div>\n          <div class='w5 arrow'>\n            >\n          </div>\n        </div>\n      ");
+  data.buffer.push("</p>\n          </div>\n          <div class='w5 arrow'></div>\n        </div>\n      ");
   return buffer;
   }
 
-  data.buffer.push("<header>\n  <h1>THE REAL COFFEE MENU</h1>\n</header>\n\n\n\n\n  <p><a href=\"../search\">Search</a><p>\n  ");
-  stack1 = helpers['if'].call(depth0, "filtersOn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("<header>\n  <h1>THE REAL COFFEE MENU</h1>\n</header>\n\n\n\n\n<div>\n  \n  ");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "search", options) : helperMissing.call(depth0, "link-to", "search", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n  ");
+  stack1 = helpers['if'].call(depth0, "filtersOn", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n  ");
-  stack1 = helpers.each.call(depth0, "content", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.each.call(depth0, "content", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n");
-  return buffer;
-  
-});
-Ember.TEMPLATES["coffeeReviews"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
-this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Ember.Handlebars.helpers); partials = this.merge(partials, Ember.Handlebars.partials); data = data || {};
-  var buffer = '', stack1, self=this;
-
-
-  stack1 = self.invokePartial(partials.coffee, 'coffee', depth0, helpers, partials, data);
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n    \n\n    <div class='reviews box'>\n      <h2>Reviews</h2>\n      <p>Coming Soon...</p>\n    </div>");
+  data.buffer.push("\n\n</div>\n\n");
   return buffer;
   
 });
@@ -302,7 +348,7 @@ function program3(depth0,data) {
   stack1 = helpers['if'].call(depth0, "flash.error", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    <div>\n         <label>Username:</label>\n        <input type=\"text\"     name=\"username\"    placeholder=\"Username\" required>\n    </div>\n    <div>\n        <label>Password:</label>\n        <input type=\"password\" name=\"password\" placeholder=\"Password\" required>\n    </div>\n    <div>\n        <label>Session Time</label>\n        <select name=\"session\">\n            <option value='1'>1 min</option>\n            <option value='10'>10 min</option>\n            <option value='15'>15 min</option>\n            <option value='30'>30 min</option>\n            <option value='60'>1 hour</option>\n            <!--<option value='6000000'>Forever</option>-->\n        </select>\n    </div>\n    <div>\n        <input type=\"submit\" value=\"Log In\" id='submitLogIn'/>\n    </div>\n  </form>\n\n  ");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "coffeeMenu", options) : helperMissing.call(depth0, "link-to", "coffeeMenu", options));
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "coffees", options) : helperMissing.call(depth0, "link-to", "coffees", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n");
   return buffer;
@@ -320,7 +366,7 @@ function program4(depth0,data) {
 function program6(depth0,data) {
   
   
-  data.buffer.push(" coffee menu link ");
+  data.buffer.push(" Skip to Menu ");
   }
 
   data.buffer.push("<header>\n  <h1>Landing Page</h1>\n</header>\n\n");
@@ -355,6 +401,24 @@ function program3(depth0,data) {
   data.buffer.push("Login Page\n\n");
   stack1 = helpers['if'].call(depth0, "user", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  return buffer;
+  
+});
+Ember.TEMPLATES["search"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing;
+
+function program1(depth0,data) {
+  
+  
+  data.buffer.push(" < ");
+  }
+
+  data.buffer.push("<header>\n  <h1>");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "coffees", options) : helperMissing.call(depth0, "link-to", "coffees", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push(" Search</h1>\n</header>\nEnter search criteria below:\n<form action=\"/search\" method=\"post\">\n  <div>\n    <label>Coffee Name: </label>\n      <input type=\"text\" name=\"name\" placeholder=\"Coffee Name\" required>\n    </div>\n    <div>\n      <label>Price: </label>\n      <select name=\"price\">\n          <option value='none'>none</option>\n          <option value=1>1</option>\n          <option value=2>2</option>\n          <option value=3>3</option>\n          <option value=4>4</option>\n      </select>\n  </div>\n  <div>\n    <input type=\"submit\" value=\"Search\" id='Search'/>\n  </div>\n</form>");
   return buffer;
   
 });

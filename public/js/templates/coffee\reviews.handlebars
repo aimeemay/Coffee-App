@@ -1,0 +1,12 @@
+{{#each review in model.reviews}}
+  <div class='reviews box'>
+  	<h2>{{review.timestamp}}</h2>
+  	<p>{{review.content}}</p>
+  </div>
+{{/each}}
+
+<div class='reviews box'>
+	<h2>Add a Review</h2>
+      {{textarea valueBinding='reviewContent'}}
+    <button {{action 'addReview'}}>Add Review</button>
+</div>
