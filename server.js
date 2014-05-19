@@ -247,26 +247,46 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/api/v1/coffees', function (req, res) {
-  coffee.find({}).toArray(function(err, docs){
-    if (err) res.send(400, err)
-     res.json({'coffees': docs});
-  });
+  
+
+console.log(req.query.searchName);
+
+  if (req.query.searchName !== undefined) {
+ 
+    var name = req.query.searchName
+    var price = req.query.searchPrice
+    if (price !== 'none' && name !== ''){
+      coffee.find({ 'name': new RegExp(name), 'price': new RegExp(+price)}
+      ).toArray(function(err, docs){
+        if (err) res.send(400, err)
+         res.json({'coffees': docs});
+      });
+    }
+    else if (price === 'none') {
+      coffee.find({'name': new RegExp(name)}).toArray(function(err, docs){
+        if (err) res.send(400, err)
+         console.log(docs)
+         res.json({'coffees': docs});
+      });    
+    } else if (name === '') {
+      coffee.find({'price': new RegExp(+price)}).toArray(function(err, docs){
+        if (err) res.send(400, err)
+         console.log(docs)
+         res.json({'coffees': docs});
+      });   
+    }
+} else {
+  console.log('GOT HERE')
+    coffee.find({}).toArray(function(err, docs){
+      if (err) res.send(400, err)
+      console.log(docs)
+      res.json({'coffees': docs});
+    });  
+  }
 });
 
 app.get("/api/v1/coffees/:id", function(req, res){
   coffee.find({'_id': new ObjectID(req.params.id)}).toArray(function(err, docs){
-    res.json({'coffees': docs[0]})
-  });
-});
-app.get("/api/v1/coffees/:id/gallery", function(req, res){
-  coffee.find({'_id': new ObjectID(req.params.id)}).toArray(function(err, docs){
-    res.json({'coffees': docs[0]})
-  });
-});
-app.get("/api/v1/coffees/:id/reviews", function(req, res){
-  coffee.find({'_id': new ObjectID(req.params.id)}).toArray(function(err, docs){
-    console.log(req.params.id);
-    console.log(docs);
     res.json({'coffees': docs[0]})
   });
 });

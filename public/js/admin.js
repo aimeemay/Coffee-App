@@ -37,6 +37,15 @@ App.CoffeeRoute = Ember.Route.extend({
   }
 })
 
+App.SearchRoute = Ember.Route.extend({
+  queryParams: {
+    searchName: {refreshModel: true},
+    searchPrice: {refreshModel: true}
+  },
+  model: function(params){
+    return this.store.findQuery('coffee', params);
+  }
+})
 App.AdminRoute = Ember.Route.extend({
   beforeModel: function(){
       if (!isLoggedinAsAdmin) this.transitionTo('login')
@@ -90,6 +99,13 @@ App.LoginController = Ember.Controller.extend({
     }
   }
 })
+
+App.SearchController = Ember.Controller.extend({
+  queryParams: ['searchName', 'searchPrice'],
+  prices: ['none', '1', '2', '3', '4'],
+  searchName: '',
+  searchPrice: 'none',
+});
 
 App.CoffeeReviewsController = Ember.ObjectController.extend({
   reviewContent : '',

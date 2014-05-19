@@ -1,23 +1,34 @@
+
+
 <header>
-  <h1>{{#link-to 'coffees'}} < {{/link-to}} Search</h1>
+  <h1>THE REAL COFFEE MENU</h1>
 </header>
-Enter search criteria below:
-<form action="/search" method="post">
-  <div>
-    <label>Coffee Name: </label>
-      <input type="text" name="name" placeholder="Coffee Name" required>
-    </div>
-    <div>
-      <label>Price: </label>
-      <select name="price">
-          <option value='none'>none</option>
-          <option value=1>1</option>
-          <option value=2>2</option>
-          <option value=3>3</option>
-          <option value=4>4</option>
-      </select>
-  </div>
-  <div>
-    <input type="submit" value="Search" id='Search'/>
-  </div>
-</form>
+
+<div class='box'>
+  <h2>Search</h2>
+  <p>Coffee Name: {{view Ember.TextArea valueBinding='searchName'}}</p>
+  <p>Price: {{view Ember.Select content=prices valueBinding='searchPrice'}}<p>
+</div>
+
+<div>
+
+{{#unless content}}
+  <div class='box'><h2>No results...</h2></div>
+{{/unless}}
+
+  {{#each content}}
+      {{#link-to 'coffee' this}}
+        <div class="coffees link box">
+          <img {{bind-attr src="image"}} class='w45'/>
+          <div class='w50 text'>
+            <h2>{{name}}</h2>
+            <p>{{short_description}}</p>
+            <p>Price: {{price}}</p>
+          </div>
+          <div class='w5 arrow'></div>
+        </div>
+      {{/link-to}}
+  {{/each}}
+</div>
+
+{{!-- {{/if}} --}}
