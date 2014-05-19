@@ -109,39 +109,39 @@ app.configure(function() {
 });
 
 
-// Main route
-app.get('/', function(req,res) {
-	var activeSession = !(typeof req.user === "undefined")
-	if (activeSession) res.redirect('coffees');
+// // Main route
+// app.get('/', function(req,res) {
+// 	var activeSession = !(typeof req.user === "undefined")
+// 	if (activeSession) res.redirect('coffees');
 
-  var flash = req.flash();
+//   var flash = req.flash();
 
-  if (flash.error) {
-    flash.error = flash.error[0];
-  }
+//   if (flash.error) {
+//     flash.error = flash.error[0];
+//   }
 
-  console.log(flash)
-	res.render('index', {activeSession: activeSession, user: req.user, flash: flash});
-})
+//   console.log(flash)
+// 	res.render('index', {activeSession: activeSession, user: req.user, flash: flash});
+// })
 
 
-// Coffees route - i.e. menu page
-app.get('/coffees/:sort?', function(req, res){
+//Coffees Menu route
+// app.get('/coffees/:sort?', function(req, res){
 
-	var sortBy = (req.params.sort || "name");
+// 	var sortBy = (req.params.sort || "name");
 
-	// make sure sorting selector actually exist
-	if (sortBy !== "name" && sortBy !== "price") {
-		res.end("404 sort this way doens't exist");
-	} else {
-		// All coffees sorted by the sortBy variable
-    coffee.find({}).sort({sortBy:1}).toArray(function(err, docs){
-		  res.render('coffees', {coffee: docs})
-    });
-	}
-})
+// 	// make sure sorting selector actually exist
+// 	if (sortBy !== "name" && sortBy !== "price") {
+// 		res.end("404 sort this way doens't exist");
+// 	} else {
+// 		// All coffees sorted by the sortBy variable
+//     coffee.find({}).sort({sortBy:1}).toArray(function(err, docs){
+// 		  res.render('coffees', {coffee: docs})
+//     });
+// 	}
+// })
 
-//Coffee route - i.e. individual coffee type pages
+//Search route
 app.get('/search', function(req, res) {
   res.render('search')
 })
@@ -211,10 +211,10 @@ app.post('/search', function(req, res) {
   }
 })
 
-app.get('/admin', 
+app.get('/', 
   // passport.authenticate('local', { failureRedirect: '/', failureFlash: true }), 
   function(req, res) {
-  res.render('admin', {layout: false})
+  res.render('master', {layout: false})
 });
 
 

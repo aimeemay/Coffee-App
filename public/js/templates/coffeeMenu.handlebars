@@ -16,10 +16,10 @@
     <p><a href="/coffees">Clear Filters</a></p>
   {{/if}}
 
-  {{#each coffee}}
-      <a href="/coffee/{{name}}">
+  {{#each content}}
+      {{#link-to 'coffeeItem' this}}
         <div class="coffees link box">
-          <img src="{{image}}" class='w45'/>
+          <img {{bind-attr src="image"}} class='w45'/>
           <div class='w50 text'>
             <h2>{{name}}</h2>
             <p>{{short_description}}</p>
@@ -29,7 +29,7 @@
             >
           </div>
         </div>
-      </a>
+      {{/link-to}}
   {{/each}}
 
 {{!-- {{/if}} --}}

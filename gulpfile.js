@@ -3,7 +3,7 @@ var concat = require('gulp-concat');
 var handlebars = require('gulp-ember-handlebars');
 
 gulp.task('templates', function(){
-  gulp.src(['public/js/admintemplates/*.handlebars'])
+  gulp.src(['public/js/templates/*.handlebars'])
     .pipe(handlebars({
       outputType: 'browser'
      }))

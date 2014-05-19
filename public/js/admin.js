@@ -12,20 +12,39 @@ App = Ember.Application.create();
 var isLoggedinAsAdmin = true;
 
 App.Router.map(function() {
-  this.route('login', {path: '/login'})
-  this.route('edit', {path: '/:id/edit'});
-  this.route('add', {path: '/add'});
+  this.route('coffeeMenu', {path: 'coffeeMenu'}, function() {});
+  this.resource('coffeeItem', {path: 'coffeeItem/:id'}, function() {
+    this.route('coffeeOverview')
+    this.route('coffeeGallery');
+    this.route('coffeeReviews');
+  });
+  this.route('admin', {path: '/admin'});
+  this.route('login', {path: '/admin/login'})
+  this.route('edit', {path: '/admin/:id/edit'});
+  this.route('add', {path: '/admin/add'});
 });
 
-App.IndexRoute = Ember.Route.extend({
-  beforeModel: function(){
-      if (!isLoggedinAsAdmin) this.transitionTo('login')
-  },
+App.CoffeeMenuRoute = Ember.Route.extend({
   model: function() {
     return this.store.find('coffee');
     // return Ember.$.getJSON('/api/v1/coffees').then(function(data) {
     //   return data.coffees;
     // });
+  }
+});
+
+App.CoffeeOverviewRoute = Ember.Route.extend({
+  model: function(params){
+    return this.store.find('coffee', params.id);
+  }
+})
+
+App.AdminRoute = Ember.Route.extend({
+  beforeModel: function(){
+      if (!isLoggedinAsAdmin) this.transitionTo('login')
+  },
+  model: function() {
+    return this.store.find('coffee');
   }
 });
 
@@ -62,7 +81,7 @@ App.LoginController = Ember.Controller.extend({
 
       if (input1==='admin' && input2 ==='pass'){
         isLoggedinAsAdmin = true;
-        this.transitionToRoute('index');
+        this.transitionToRoute('admin');
       }
 
     },
@@ -79,12 +98,12 @@ App.EditController = Ember.ObjectController.extend({
   actions: {
     editCoffee: function() {
       this.get('model').save()
-      this.transitionToRoute('index');
+      this.transitionToRoute('admin');
     }
   }
 });
 
-App.IndexController = Ember.ObjectController.extend({
+App.AdminController = Ember.ObjectController.extend({
   actions: {
     deleteCoffee: function(a) {
       if(confirm('Are you sure you want to delete?')){
@@ -127,7 +146,7 @@ App.AddController = Ember.ObjectController.extend({
           // this.set('price', '');
           // this.set('who_drinks_it', '');
           // this.set('how_to_drink', '');
-          this.transitionToRoute('index').then(
+          this.transitionToRoute('admin').then(
            function() {location.reload();}
           );
       });
@@ -152,7 +171,8 @@ App.Coffee = DS.Model.extend({
     image: DS.attr(),
     who_drinks_it: DS.attr(),
     how_to_drink: DS.attr(),
-    gallery: DS.attr()
+    gallery: DS.attr(),
+    reviews: DS.hasMany('reviews')
 })
 
 App.Reviews = DS.Model.extend({
