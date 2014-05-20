@@ -256,7 +256,7 @@ console.log(req.query.searchName);
     var name = req.query.searchName
     var price = req.query.searchPrice
     if (price !== 'none' && name !== ''){
-      coffee.find({ 'name': new RegExp(name), 'price': new RegExp(+price)}
+      coffee.find({ 'name': new RegExp(name), 'price': +price}
       ).toArray(function(err, docs){
         if (err) res.send(400, err)
          res.json({'coffees': docs});
@@ -269,14 +269,13 @@ console.log(req.query.searchName);
          res.json({'coffees': docs});
       });    
     } else if (name === '') {
-      coffee.find({'price': new RegExp(+price)}).toArray(function(err, docs){
+      coffee.find({'price': +price}).toArray(function(err, docs){
         if (err) res.send(400, err)
          console.log(docs)
          res.json({'coffees': docs});
       });   
     }
 } else {
-  console.log('GOT HERE')
     coffee.find({}).toArray(function(err, docs){
       if (err) res.send(400, err)
       console.log(docs)
