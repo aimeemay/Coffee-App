@@ -1,13 +1,12 @@
 //to do
+//SWIPEBOX: $(function(){ $('.swipebox' ).swipebox(); });
   //1. add
     //1.1 return something to signal it worked
     //1.2 id
     //1.3 clear controller variables
   //2. edit
     //2.1 add validation that page has been edited http://emberjs.com/guides/getting-started/accepting-edits/
-
 App = Ember.Application.create();
-
 
 var isLoggedinAsAdmin = true;
 
@@ -108,19 +107,32 @@ App.SearchController = Ember.Controller.extend({
 });
 
 App.CoffeeReviewsController = Ember.ObjectController.extend({
-  reviewContent : '',
+  content : '',
+  rating: '',
   actions: {
+    like: function() {
+      if (this.get('rating') === true) {this.set('rating', '')}
+      else this.set('rating', true);
+    },
+    dislike: function() {
+      if (this.get('rating') === false) {this.set('rating', '')}
+      else this.set('rating', false);
+    },
     addReview: function() {
       var d = new Date();
-      var reviewTimestamp = d.getDay()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
-      var reviewContent = this.get('reviewContent')
-      var review = {content: reviewContent, timestamp: reviewTimestamp};
+      var timestamp = d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
+      var content = this.get('content')
+      var rating = this.get('rating')
+      var review = {content: content, rating: rating, timestamp: timestamp};
       var id = this.get('model.id')
       var controller = this
+
+      console.log(review)
       this.store.find('coffee', id).then(function(a) {
         a.get('reviews').addObject(review)
         a.save();
-        controller.set('reviewContent', '');
+        controller.set('content', '');
+        controller.set('rating', '');
       })
     }
   }
@@ -207,5 +219,4 @@ App.Coffee = DS.Model.extend({
   gallery: DS.attr(),
   reviews: DS.attr()
 })
-
 

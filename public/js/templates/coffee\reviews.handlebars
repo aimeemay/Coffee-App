@@ -1,12 +1,17 @@
 {{#each review in model.reviews}}
   <div class='reviews box'>
   	<h2>{{review.timestamp}}</h2>
+  	{{review.rating}}
   	<p>{{review.content}}</p>
   </div>
 {{/each}}
 
 <div class='reviews box'>
 	<h2>Add a Review</h2>
-      {{textarea valueBinding='reviewContent'}}
+    {{textarea valueBinding='content'}}
+    <button {{action 'like'}}>Like</button>
+    <button {{action 'dislike'}}>Dislike</button>
+    {{rating}}
+    <br/>
     <button {{action 'addReview'}}>Add Review</button>
 </div>

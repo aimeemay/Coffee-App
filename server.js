@@ -247,10 +247,6 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/api/v1/coffees', function (req, res) {
-  
-
-console.log(req.query.searchName);
-
   if (req.query.searchName !== undefined) {
  
     var name = req.query.searchName
@@ -275,7 +271,7 @@ console.log(req.query.searchName);
          res.json({'coffees': docs});
       });   
     }
-} else {
+  } else {
     coffee.find({}).toArray(function(err, docs){
       if (err) res.send(400, err)
       console.log(docs)
@@ -311,7 +307,7 @@ app.post('/api/v1/coffees', function (req, res) {
   });
 });
 
-//PUT of coffee item edit
+//PUT of coffee item edit or new review
 app.put("/api/v1/coffees/:id", function(req, res){
   var editedCoffeeObj = req.body.coffee
   // console.log(editedCoffeeObj);

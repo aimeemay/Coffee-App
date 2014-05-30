@@ -7,7 +7,7 @@ gulp.task('templates', function(){
     .pipe(handlebars({
       outputType: 'browser'
      }))
-    .pipe(concat('admin.templates.js'))
+    .pipe(concat('master.templates.js'))
     .pipe(gulp.dest('public/js/'));
 });
 
