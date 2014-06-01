@@ -19,7 +19,7 @@ App.Router.map(function() {
     this.route('reviews');
   });
   this.route('admin', {path: '/admin'});
-  this.route('login', {path: '/admin/login'})
+  this.route('login', {path: '/admin/login'});
   this.route('edit', {path: '/admin/:id/edit'});
   this.route('add', {path: '/admin/add'});
 });
@@ -105,6 +105,7 @@ App.SearchController = Ember.Controller.extend({
   searchName: '',
   searchPrice: 'none',
 });
+
 
 App.CoffeeReviewsController = Ember.ObjectController.extend({
   content : '',
@@ -199,6 +200,38 @@ App.AddController = Ember.ObjectController.extend({
   }
 });
 
+App.CoffeeOverviewMapsController = Ember.ObjectController.extend({
+  didInsertElement : function(){
+    this._super();
+    Ember.run.scheduleOnce('afterRender', this, function(){
+      // debugger;
+      console.log(this.controller.history)
+    var lat = this.get('controller.model.history.location')[0],
+        lng = this.get('controller.model.history.location')[1],
+        content = this.get('controller.model.history.content')
+
+    var map = new GMaps({
+      el: '#map',
+      lat: lat,
+      lng: lng,
+      zoom: 3
+    }); 
+
+    var infoWindow = new google.maps.InfoWindow({
+        content: '<p>'+content+'</p>'
+    });
+
+    var marker = map.addMarker({
+      lat: lat,
+      lng: lng,
+      infoWindow: infoWindow
+    });
+
+    infoWindow.open(map, marker)
+    });
+  }
+})
+
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   namespace: 'api/v1'
 });
@@ -216,7 +249,16 @@ App.Coffee = DS.Model.extend({
   image: DS.attr(),
   who_drinks_it: DS.attr(),
   how_to_drink: DS.attr(),
+  history: DS.attr(),
   gallery: DS.attr(),
   reviews: DS.attr()
 })
 
+
+// //DOC READY
+//   $(function(){ $('.swipebox' ).swipebox(); });
+// });
+// Create infoWindow
+var infoWindow = new google.maps.InfoWindow({
+    content: 'Content goes here..'
+});

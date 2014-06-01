@@ -174,10 +174,25 @@ function program1(depth0,data,depth1) {
 Ember.TEMPLATES["coffee/overview"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, escapeExpression=this.escapeExpression;
+  var buffer = '', stack1, self=this, escapeExpression=this.escapeExpression;
 
+function program1(depth0,data) {
+  
+  var buffer = '', stack1;
+  data.buffer.push("\n      test ");
+  stack1 = helpers._triageMustache.call(depth0, "_view.contentIndex", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n      \n      ");
+  stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n    ");
+  return buffer;
+  }
 
-  data.buffer.push("<div id='Overview'>\n  <div class='coffeeOverview box'>\n    <h2>Overview</h2>\n    <div>\n      <p>");
+  data.buffer.push("<div id='Overview'>\n  <div class=\"box\">\n\n    <h2>History</h2>\n    ");
+  stack1 = helpers.each.call(depth0, "history", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n  </div>\n\n  <div class='coffeeOverview box'>\n    <h2>Overview</h2>\n    <div>\n      <p>");
   stack1 = helpers._triageMustache.call(depth0, "short_description", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</p>\n      <p>Price: ");
@@ -201,6 +216,15 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   return buffer;
   
 });
+Ember.TEMPLATES["coffee/overview/maps"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  
+
+
+  data.buffer.push("<div id=\"map\" style='height:20%;width:70%;'></div>");
+  
+});
 Ember.TEMPLATES["coffee/reviews"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
@@ -213,9 +237,6 @@ function program1(depth0,data) {
   stack1 = helpers._triageMustache.call(depth0, "review.timestamp", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</h2>\n  	<p>");
-  stack1 = helpers._triageMustache.call(depth0, "review.rating", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</p>\n  	<p>");
   stack1 = helpers._triageMustache.call(depth0, "review.content", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</p>\n  </div>\n");
