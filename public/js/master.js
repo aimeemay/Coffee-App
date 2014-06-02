@@ -14,7 +14,9 @@ App.Router.map(function() {
   this.route('coffees', {path: 'coffees'});
   this.route('search', {path: 'search'});
   this.resource('coffee', {path: 'coffee/:id'}, function() {
-    this.route('overview', {path: '/'});
+    this.route('overview', {path: '/'}, function() {
+      this.route('maps', {path:'/'})
+    });
     this.route('gallery');
     this.route('reviews');
   });
@@ -200,37 +202,82 @@ App.AddController = Ember.ObjectController.extend({
   }
 });
 
-App.CoffeeOverviewMapsController = Ember.ObjectController.extend({
+App.CoffeeOverviewController = Ember.ObjectController.extend({
+  mapLat: null,
+  mapLng: null,
+  mapContent: null,
+  actions: {
+    changeStory: function(data) {
+      this.set('mapLat', data.location[0])
+      this.set('mapLng', data.location[1])
+      this.set('mapContent', data.content)
+    }
+  }
+  // data.location -- set the data here
+});
+
+App.CoffeeOverviewView = Ember.View.extend({
+  map: null,
+  infoWindow: null,
+  marker: null,
   didInsertElement : function(){
+    console.log(2)
     this._super();
     Ember.run.scheduleOnce('afterRender', this, function(){
+      //initialise map
+      this.map = new GMaps({
+        el: '#map',
+        lat: this.controller.get('model.history')[0].location[0],
+        lng: this.controller.get('model.history')[0].location[1],
+        zoom: 3,
+        zoomControl: true,
+        zoomControlOpt: {
+          style:'SMALL',
+          position: 'TOP_LEFT'
+        }
+      });
       // debugger;
-      console.log(this.controller.history)
-    var lat = this.get('controller.model.history.location')[0],
-        lng = this.get('controller.model.history.location')[1],
-        content = this.get('controller.model.history.content')
-
-    var map = new GMaps({
-      el: '#map',
-      lat: lat,
-      lng: lng,
-      zoom: 3
-    }); 
-
-    var infoWindow = new google.maps.InfoWindow({
-        content: '<p>'+content+'</p>'
+      this.updateMap(); 
     });
+  },
+  updateMap: function(){
+    console.log(1)
+    var lat = this.controller.get('mapLat')
+    
+    if (this.map !== null) {
+      if (lat !== null) {
+        var lng = this.controller.get('mapLng'),
+            content = this.controller.get('mapContent')
 
-    var marker = map.addMarker({
-      lat: lat,
-      lng: lng,
-      infoWindow: infoWindow
-    });
+        this.map.removeMarkers();
+        this.map.setCenter(lat,lng);
+        this.infoWindow = new google.maps.InfoWindow({
+          content: '<p>'+content+'</p>'
+        });
+        this.marker = this.map.addMarker({
+          lat: lat,
+          lng: lng,
+          infoWindow: this.infoWindow
+        })
+        this.infoWindow.open(this.map, this.marker)        
+      } else {
+        var lat = this.controller.get('model.history')[0].location[0],
+            lng = this.controller.get('model.history')[0].location[1],
+            content = this.controller.get('model.history')[0].content
 
-    infoWindow.open(map, marker)
-    });
-  }
-})
+        this.infoWindow = new google.maps.InfoWindow({
+          content: '<p>'+content+'</p>'
+        });
+        this.marker = this.map.addMarker({
+          lat: lat,
+          lng: lng,
+          infoWindow: this.infoWindow
+        })
+        this.infoWindow.open(this.map, this.marker)
+      }
+    }
+  }.observes('controller.mapContent')
+});
 
 App.ApplicationAdapter = DS.RESTAdapter.extend({
   namespace: 'api/v1'
@@ -254,11 +301,6 @@ App.Coffee = DS.Model.extend({
   reviews: DS.attr()
 })
 
-
 // //DOC READY
 //   $(function(){ $('.swipebox' ).swipebox(); });
 // });
-// Create infoWindow
-var infoWindow = new google.maps.InfoWindow({
-    content: 'Content goes here..'
-});

@@ -174,25 +174,24 @@ function program1(depth0,data,depth1) {
 Ember.TEMPLATES["coffee/overview"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, self=this, escapeExpression=this.escapeExpression;
+  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\n      test ");
+  data.buffer.push("\n      <button ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "changeStory", "", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
+  data.buffer.push(">Story");
   stack1 = helpers._triageMustache.call(depth0, "_view.contentIndex", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n      \n      ");
-  stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n    ");
+  data.buffer.push("</button>\n    ");
   return buffer;
   }
 
   data.buffer.push("<div id='Overview'>\n  <div class=\"box\">\n\n    <h2>History</h2>\n    ");
   stack1 = helpers.each.call(depth0, "history", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n  </div>\n\n  <div class='coffeeOverview box'>\n    <h2>Overview</h2>\n    <div>\n      <p>");
+  data.buffer.push("\n    <div id=\"map\" style='height:60%;width:90%;'></div>\n  </div>\n  <div class='coffeeOverview box'>\n    <h2>Overview</h2>\n    <div>\n      <p>");
   stack1 = helpers._triageMustache.call(depth0, "short_description", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</p>\n      <p>Price: ");
@@ -212,7 +211,7 @@ function program1(depth0,data) {
   data.buffer.push("</p>\n  </div>\n  <div class='howDrinks box'>\n    <h2>How to Drink</h2>\n    <p>");
   stack1 = helpers._triageMustache.call(depth0, "how_to_drink", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</p>\n  </div>\n</div>");
+  data.buffer.push("</p>\n  </div>\n</div>\n");
   return buffer;
   
 });

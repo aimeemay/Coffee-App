@@ -3,12 +3,10 @@
 
     <h2>History</h2>
     {{#each history}}
-      test {{_view.contentIndex}}
-      {{!-- {{#link-to 'coffee.overview.maps' this}}test {{_view.contentIndex}}{{/link-to}} --}}
-      {{outlet}}
+      <button {{action 'changeStory' this}}>Story{{_view.contentIndex}}</button>
     {{/each}}
+    <div id="map" style='height:60%;width:90%;'></div>
   </div>
-
   <div class='coffeeOverview box'>
     <h2>Overview</h2>
     <div>
