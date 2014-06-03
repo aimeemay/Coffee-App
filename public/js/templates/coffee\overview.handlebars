@@ -1,12 +1,4 @@
 <div id='Overview'>
-  <div class="box">
-
-    <h2>History</h2>
-    {{#each history}}
-      <button {{action 'changeStory' this}}>Story{{_view.contentIndex}}</button>
-    {{/each}}
-    <div id="map" style='height:60%;width:90%;'></div>
-  </div>
   <div class='coffeeOverview box'>
     <h2>Overview</h2>
     <div>
@@ -14,6 +6,14 @@
       <p>Price: {{price}}</p>
     </div>
     <img {{bind-attr src='image' alt='title'}}/>
+  </div>
+  <div class="box">
+    <h2>History</h2>
+    {{#each history}}
+      <button {{action 'changeStory' this}}>Story{{_view.contentIndex}}</button>
+    {{/each}}
+    <div id="map" style='height:60%;width:80%;'></div>
+    <button {{action 'routeToStory' target="view"}}>Route Here...</button>
   </div>
   <div class='coffeeDesc box'>
     <h2>Description</h2>

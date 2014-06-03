@@ -15,19 +15,24 @@
 {{#unless content}}
   <div class='box'><h2>No results...</h2></div>
 {{/unless}}
-  {{#each content}}
-      {{#link-to 'coffee' this}}
-        <div class="coffees link box">
-          <img {{bind-attr src="image"}} class='w45'/>
-          <div class='w50 text'>
-            <h2>{{name}}</h2>
-            <p>{{short_description}}</p>
-            <p>Price: {{price}}</p>
-          </div>
-          <div class='w5 arrow'></div>
+
+<div class="box">
+  <div id="mapSearch" style='height:90%;width:70%;'></div>
+</div>
+
+{{#each content}}
+    {{#link-to 'coffee' this}}
+      <div class="coffees link box">
+        <img {{bind-attr src="image"}} class='w45'/>
+        <div class='w50 text'>
+          <h2>{{name}}</h2>
+          <p>{{short_description}}</p>
+          <p>Price: {{price}}</p>
         </div>
-      {{/link-to}}
-  {{/each}}
+        <div class='w5 arrow'></div>
+      </div>
+    {{/link-to}}
+{{/each}}
 </div>
 
 {{!-- {{/if}} --}}

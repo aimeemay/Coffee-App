@@ -108,6 +108,58 @@ App.SearchController = Ember.Controller.extend({
   searchPrice: 'none',
 });
 
+App.SearchView = Ember.View.extend({
+  map: null,
+  didInsertElement: function() {
+    this.map = new GMaps({
+      el: '#mapSearch',
+      lat: 30.3894007,
+      lng: 69.3532207,
+      scaleControl: false,
+      panControl: false,
+      zoomControl: false,
+      mapTypeControl: false,
+      streetViewControl:false,
+      zoom: 2,
+    });
+
+    var model = this.controller.get('model.content');
+    // var bounds = new google.maps.LatLngBounds();
+
+    for (var i = 0; i < model.length; i++) {
+      var history = model[i].get('history'),
+          lat = history[0].location[0],
+          lng = history[0].location[1]
+        console.log(lat + "   " + lng)
+      // debugger;
+      this.map.addMarker({
+        lat: lat,
+        lng: lng
+      });
+      // bounds.extend(history[0].location)
+    };
+    // this.map.fitBounds(bounds);
+  },
+  updateMap : function() {
+    if (this.map !== null) {
+      var model = this.controller.get('model.content');
+      // var bounds = new google.maps.LatLngBounds();
+      for (var i = 0; i < model.length; i++) {
+        var history = model[i].get('history'),
+            lat = history[0].location[0],
+            lng = history[0].location[1]
+          console.log(lat + "   " + lng)
+        // debugger;
+        this.map.addMarker({
+          lat: lat,
+          lng: lng
+        });
+        // bounds.extend(history[0].location)
+      };
+      // this.map.fitBounds(bounds);
+    }
+  }.observes('controller.model')
+})
 
 App.CoffeeReviewsController = Ember.ObjectController.extend({
   content : '',
@@ -220,8 +272,43 @@ App.CoffeeOverviewView = Ember.View.extend({
   map: null,
   infoWindow: null,
   marker: null,
+  actions: {
+    routeToStory: function() {
+      var lat = this.controller.get('mapLat'),
+          lng = this.controller.get('mapLng')
+          debugger;
+
+      this.map.geolocate({
+        success: function(position) {
+          this.map.setCenter(position.coords.latitude, position.coords.longitude);
+        },
+        error: function(error) {
+          alert('Geolocation failed: '+error.message);
+        },
+        not_supported: function() {
+          alert("Your browser does not support geolocation");
+        }
+      });
+
+      // debugger;
+      this.map.addMarker({
+        lat: -27.4702796,
+        lng: 153.023036
+      })
+
+      this.map.drawRoute({
+        origin: [-27.4702796,153.023036],
+        destination: [lat, lng],
+        travelMode: 'walking',
+        strokeColor: '#131540',
+        strokeOpacity: 0.6,
+        strokeWeight: 6
+      });
+      debugger;
+    }
+  },
   didInsertElement : function(){
-    console.log(2)
+    console.log(1)
     this._super();
     Ember.run.scheduleOnce('afterRender', this, function(){
       //initialise map
@@ -230,18 +317,22 @@ App.CoffeeOverviewView = Ember.View.extend({
         lat: this.controller.get('model.history')[0].location[0],
         lng: this.controller.get('model.history')[0].location[1],
         zoom: 3,
-        zoomControl: true,
-        zoomControlOpt: {
-          style:'SMALL',
-          position: 'TOP_LEFT'
-        }
+        scaleControl: false,
+        panControl: false,
+        zoomControl: false,
+        mapTypeControl: false,
+        streetViewControl:false,
+        // zoomControlOpt: {
+        //   style:'SMALL',
+        //   position: 'TOP_LEFT'
+        // }
       });
       // debugger;
       this.updateMap(); 
     });
   },
   updateMap: function(){
-    console.log(1)
+    console.log(2)
     var lat = this.controller.get('mapLat')
     
     if (this.map !== null) {
@@ -252,7 +343,7 @@ App.CoffeeOverviewView = Ember.View.extend({
         this.map.removeMarkers();
         this.map.setCenter(lat,lng);
         this.infoWindow = new google.maps.InfoWindow({
-          content: '<p>'+content+'</p>'
+          content: '<p>'+content+'</p>',
         });
         this.marker = this.map.addMarker({
           lat: lat,
@@ -264,6 +355,10 @@ App.CoffeeOverviewView = Ember.View.extend({
         var lat = this.controller.get('model.history')[0].location[0],
             lng = this.controller.get('model.history')[0].location[1],
             content = this.controller.get('model.history')[0].content
+
+        this.controller.set('mapLat', lat);
+        this.controller.set('mapLng', lng);
+        this.controller.set('mapContent', content);
 
         this.infoWindow = new google.maps.InfoWindow({
           content: '<p>'+content+'</p>'
