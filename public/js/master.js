@@ -274,44 +274,46 @@ App.CoffeeOverviewView = Ember.View.extend({
   marker: null,
   actions: {
     routeToStory: function() {
+      //get data from controller
       var lat = this.controller.get('mapLat'),
-          lng = this.controller.get('mapLng')
-          debugger;
+          lng = this.controller.get('mapLng'),
+          view = this
 
-      this.map.geolocate({
-        success: function(position) {
-          this.map.setCenter(position.coords.latitude, position.coords.longitude);
+      //get user's location
+      GMaps.geolocate({
+        success: function(position){
+          //edit map as per user's location
+          view.map.setCenter(position.coords.latitude, position.coords.longitude);
+          view.map.addMarker({
+            lat: position.coords.latitude, 
+            lng: position.coords.longitude
+          })
+          view.map.set('zoom', 13);
+
+          //draw route from user's location to story point
+          view.map.drawRoute({
+            origin: [position.coords.latitude, position.coords.longitude],
+            destination: [lat, lng],
+            travelMode: 'driving',
+            strokeColor: '#000',
+            strokeOpacity: 0.6,
+            strokeWeight: 6
+          });
         },
-        error: function(error) {
+        error: function(error){
           alert('Geolocation failed: '+error.message);
         },
-        not_supported: function() {
+        not_supported: function(){
           alert("Your browser does not support geolocation");
         }
       });
-
-      // debugger;
-      this.map.addMarker({
-        lat: -27.4702796,
-        lng: 153.023036
-      })
-
-      this.map.drawRoute({
-        origin: [-27.4702796,153.023036],
-        destination: [lat, lng],
-        travelMode: 'walking',
-        strokeColor: '#131540',
-        strokeOpacity: 0.6,
-        strokeWeight: 6
-      });
-      debugger;
     }
   },
   didInsertElement : function(){
     console.log(1)
     this._super();
     Ember.run.scheduleOnce('afterRender', this, function(){
-      //initialise map
+      //initialise map when ember ready
       this.map = new GMaps({
         el: '#map',
         lat: this.controller.get('model.history')[0].location[0],
@@ -327,7 +329,6 @@ App.CoffeeOverviewView = Ember.View.extend({
         //   position: 'TOP_LEFT'
         // }
       });
-      // debugger;
       this.updateMap(); 
     });
   },
@@ -337,11 +338,17 @@ App.CoffeeOverviewView = Ember.View.extend({
     
     if (this.map !== null) {
       if (lat !== null) {
+        //get data from controller
         var lng = this.controller.get('mapLng'),
             content = this.controller.get('mapContent')
-
+        
+        //clean map
+        this.map.cleanRoute();
         this.map.removeMarkers();
+        this.map.set('zoom', 3)
         this.map.setCenter(lat,lng);
+        
+        //new marker/infowindow
         this.infoWindow = new google.maps.InfoWindow({
           content: '<p>'+content+'</p>',
         });
@@ -352,14 +359,17 @@ App.CoffeeOverviewView = Ember.View.extend({
         })
         this.infoWindow.open(this.map, this.marker)        
       } else {
+        //get data from model
         var lat = this.controller.get('model.history')[0].location[0],
             lng = this.controller.get('model.history')[0].location[1],
             content = this.controller.get('model.history')[0].content
-
+        
+        //set data in controller
         this.controller.set('mapLat', lat);
         this.controller.set('mapLng', lng);
         this.controller.set('mapContent', content);
 
+        //set marker/infowindow
         this.infoWindow = new google.maps.InfoWindow({
           content: '<p>'+content+'</p>'
         });
